@@ -1,0 +1,26 @@
+plugin.tx_ingallery_pi1 {
+	config {
+		#CODE dertermine what to display, possible values : list, single, search
+		CODE = sDEF|lDEF|CODE|vDEF
+		CODE.ifEmpty = postList
+
+		pidList = 1
+		recursive = 10
+		
+		templateFile = EXT:in_gallery/res/template.html
+		
+		orderBy = sorting ASC
+	}
+	
+	displayAlbum {
+		markers {
+		}
+	}
+	
+	displayGallery{
+		markers {
+		}
+	}
+}
+
+
