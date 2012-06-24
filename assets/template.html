@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  	<title>Directory template</title>
+  </head>
+  <body>
+    
+    <h1>Directory template</h1>
+    <ul id="catList">
+					<li class="cat-item cat-item-39"><a href="category/bons-plans/" title="Voir tous les articles classés dans Bons plans">Bons plans</a>
+
+    <h2>DISPLAY_CAT</h2>    
+	<!-- ###TEMPLATE_CAT### begin Template pour le listing de catégories -->
+	<ul id="catList">
+		
+		<!-- ###CONTENT### begin-->
+			<!-- ###ITEM### begin Template pour un unique item-->
+				<li ###PARAMS###>###TITLE###</li>
+			<!-- ###ITEM### end -->
+		<!-- ###CONTENT### end-->
+	</ul>
+	<!-- ###TEMPLATE_CAT### end-->
+    
+	
+    <h2>DISPLAY_SINGLE</h2>    
+	<!-- ###TEMPLATE_SINGLE### begin Template pour le listing de catégories -->
+	<div class="structureSingle">
+		
+		<!-- ###CONTENT### begin-->
+			<!-- ###ITEM### begin Template pour un unique item-->
+				<h3>###NAME###</h3>
+				###IMAGE###
+				###CATS###
+				###DESCRIPTION###
+				###MORE###
+				<address>###ADDRESS###</address>
+			<!-- ###ITEM### end -->
+		<!-- ###CONTENT### end-->
+		
+	</div>
+	<!-- ###TEMPLATE_SINGLE### end-->
+	
+	
+	<h2>SEARCH FORMS</h2>    
+	<!-- ###TEMPLATE_SEARCH### begin Template pour le listing de billets -->
+	<div class="tx_indirectory_forms">
+		<div class="table">
+			<div class="categorySearch column">###SEARCH_WORDS###</div>
+			<div class="wordSearch column">###SEARCH_CATEGORY###</div>
+		</div>
+		<div class="alphaSearch">###SEARCH_ALPHA###</div>
+	</div>
+	<!-- ###TEMPLATE_SEARCH### end-->
+	
+	
+	<h2>KEYWORD SEARCH</h2>
+	<!-- ###TEMPLATE_SEARCH_WORDS### begin Template pour le listing de billets -->
+		###FORM_HEADER###
+		###FIELDS###
+		###SUBMIT_FIELD###
+		###FORM_FOOTER###
+	<!-- ###TEMPLATE_SEARCH_WORDS### end-->
+	
+	
+	<h2>CATEGORY SEARCH</h2>
+	<!-- ###TEMPLATE_SEARCH_CATEGORY### begin Template pour le listing de billets -->
+		###FORM_HEADER###
+		###FIELDS###
+		###SUBMIT_FIELD###
+		###FORM_FOOTER###
+	<!-- ###TEMPLATE_SEARCH_CATEGORY### end-->
+	
+	
+	
+	
+	<!-- ###TEMPLATE_FORM_ITEM### begin Template pour le listing de billets -->
+	<div class="item">###LABEL### ###FIELD### ###ERROR###</div>
+	<!-- ###TEMPLATE_FORM_ITEM### end-->
+
+<html>
