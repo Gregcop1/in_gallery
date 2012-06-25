@@ -31,7 +31,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @package	TYPO3
  * @subpackage tx_gclib
  */
- class tx_ingallery_albumList extends tx_gclib_list { 
+ class tx_ingallery_imageList extends tx_gclib_list { 
 	var $conf;
 	var $tableName;
 	var $subPart;
@@ -48,14 +48,14 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 * @return	The content that is displayed on the website
 	 */
 	 function main($conf, $tableName = '') {
-	 	 parent::main($conf, 'tx_ingallery_album');
+	 	 parent::main($conf, 'tx_ingallery_image');
 	 	 
 	 	 $this->results = $this->execQuery( $this->query );
-	 	 return $this->render($this->config['templateFile'], 'TEMPLATE_ALBUM',  $this->conf['displayAlbum.'], $this->results);
+	 	 return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
 	 }	
  }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_albumList.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_albumList.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_imageList.php'])	{
+	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_imageList.php']);
 }

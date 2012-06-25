@@ -1,0 +1,50 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.configuration</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+
+					<CODE>
+						<TCEforms>
+							<label>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code</label>
+							<config>
+
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0"></numIndex>
+										<numIndex index="1"></numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.categoryList</numIndex>
+										<numIndex index="1">categoryList</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.albumList</numIndex>
+										<numIndex index="1">albumList</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.imageList</numIndex>
+										<numIndex index="1">imageList</numIndex>
+									</numIndex>
+								</items>
+								<default></default>
+
+							</config>
+						</TCEforms>
+					</CODE>
+					  
+				</el>
+			</ROOT>
+		</sDEF>
+
+	</sheets>
+</T3DataStructure>
+

@@ -2,7 +2,7 @@ plugin.tx_ingallery_pi1 {
 	config {
 		#CODE dertermine what to display, possible values : albumList, imageList
 		CODE = sDEF|lDEF|CODE|vDEF
-		CODE.ifEmpty = albumList
+		CODE.ifEmpty = imageList
 
 		pidList = 1
 		recursive = 10
@@ -10,6 +10,8 @@ plugin.tx_ingallery_pi1 {
 		templateFile = EXT:in_gallery/assets/template.html
 		
 		orderBy = sorting ASC
+		groupBy = 
+		limit = 
 	}
 	
 	displayAlbum {
@@ -30,5 +32,3 @@ plugin.tx_ingallery_pi1 {
 		}
 	}
 }
-
-

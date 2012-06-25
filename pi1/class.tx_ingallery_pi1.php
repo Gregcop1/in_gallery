@@ -51,11 +51,11 @@ class tx_ingallery_pi1 extends tx_gclib {
 	 */
 	function main($content,$conf) {
 		parent::main($conf);
-		
+
 		$content = '';
 		switch($this->config['CODE']) {
 			case 'imageList': {
-				//$content = $this->makeInstance(t3lib_extMgm::extPath($this->extKey).'pi1/class.tx_ingallery_list.php', 'tx_ingallery_list', $this->conf);
+				$content = $this->makeInstance(t3lib_extMgm::extPath($this->extKey).'pi1/class.tx_ingallery_imageList.php', 'tx_ingallery_imageList', $this->conf);
 			}break;
 			case 'albumList':
 				$content = $this->makeInstance(t3lib_extMgm::extPath($this->extKey).'pi1/class.tx_ingallery_albumList.php', 'tx_ingallery_albumList', $this->conf);
