@@ -1,19 +1,27 @@
 plugin.tx_ingallery_pi1 {
 	config {
-		#CODE dertermine what to display, possible values : list, single, search
+		#CODE dertermine what to display, possible values : albumList, imageList
 		CODE = sDEF|lDEF|CODE|vDEF
-		CODE.ifEmpty = postList
+		CODE.ifEmpty = albumList
 
 		pidList = 1
 		recursive = 10
 		
-		templateFile = EXT:in_gallery/res/template.html
+		templateFile = EXT:in_gallery/assets/template.html
 		
 		orderBy = sorting ASC
 	}
 	
 	displayAlbum {
 		markers {
+			TITLE = TEXT
+			TITLE.field = title
+
+			PARAMS = TEXT
+			PARAMS{
+				value = class="item item-{field:uid}"
+				insertData = 1
+			}
 		}
 	}
 	
