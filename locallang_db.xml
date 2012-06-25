@@ -17,7 +17,7 @@
 			<label index="tx_ingallery_image.copyright">Copyright</label>
 			<label index="tx_ingallery_image.image">Image</label>
 			<label index="tx_ingallery_image.album">Album</label>
-			<label index="tt_content.list_type_pi1">Gallery</label>
+			<label index="tt_content.list_type_pi1">Gallery widget</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="tx_ingallery_album">Album</label>
@@ -31,7 +31,7 @@
 			<label index="tx_ingallery_image.copyright">Copyright</label>
 			<label index="tx_ingallery_image.image">Image</label>
 			<label index="tx_ingallery_image.album">Album</label>
-			<label index="tt_content.list_type_pi1">Galerie</label>
+			<label index="tt_content.list_type_pi1">Bloc de galerie</label>
 		</languageKey>
 	</data>
 </T3locallang>

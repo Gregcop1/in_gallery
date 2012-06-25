@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_indirectory_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="flexform.configuration">Plugin's configuration</label>
+			<label index="flexform.code">Display</label>
+			<label index="flexform.code.categoryList">List of categories</label>
+			<label index="flexform.code.albumList">List of albums</label>
+			<label index="flexform.code.imageList">Gallery</label>
+			
+			<label index="error.noResult">No result</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="flexform.configuration">Configuration du plugin</label>
+			<label index="flexform.code">Affichage</label>
+			<label index="flexform.code.categoryList">Liste de catégorie</label>
+			<label index="flexform.code.albumList">Liste des albums</label>
+			<label index="flexform.code.imageList">Galerie</label>
+			
+			<label index="error.noResult">Aucun résultat</label>
+		</languageKey>
+	</data>
+</T3locallang>
