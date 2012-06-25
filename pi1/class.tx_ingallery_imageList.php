@@ -53,6 +53,19 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 	 $this->results = $this->execQuery( $this->query );
 	 	 return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
 	 }	
+
+	 /**
+	  * Include query part to link album and find the last album if necessary
+	  */
+	 function initFilterQueryParts(){
+	 	$this->query['FROM'] .= ' LEFT JOIN tx_ingallery_album on ( tx_ingallery_album.uid = '.$this->tableName.'.tx_ingallery_album_uid )';
+		$this->query['WHERE'] .= (	$this->config['pidList'] ? ' AND tx_ingallery_album.pid in ('.implode(',', $this->getRecursivePid( $this->config['pidList'], $this->config['recursive'] )).')' : '')
+					. $this->cObj->enableFields('tx_ingallery_album');
+//		$this->query['ORDER BY'] = $this->tableName.'.uid';
+		//$this->query['GROUP BY'] .= ($this->config['groupBy'] ? $this->config['groupBy'] : '');
+		//$this->query['ORDER BY'] .= ($this->config['orderBy'] ? $this->config['orderBy'] : '');
+		//$this->query['LIMIT'] .= ($this->config['limit'] ? $this->config['limit'] : '');
+	 }
  }
 
 

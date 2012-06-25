@@ -27,8 +27,19 @@ plugin.tx_ingallery_pi1 {
 		}
 	}
 	
-	displayGallery{
+	displayImage{
 		markers {
+			TITLE = TEXT
+			TITLE.field = title
+
+			IMG = IMAGE
+			IMG {
+				file{
+					import.field = image
+					width = 160c
+					height = 120
+				}
+			}
 		}
 	}
 }
