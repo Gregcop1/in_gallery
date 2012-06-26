@@ -12,11 +12,6 @@ plugin.tx_ingallery_pi1 {
 		orderBy = sorting ASC
 		groupBy = 
 		limit = 
-
-		gallery{
-			width 	= 960c
-			height	= 720
-		}
 	}
 	
 	displayAlbum {
