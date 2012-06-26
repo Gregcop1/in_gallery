@@ -12,12 +12,25 @@ plugin.tx_ingallery_pi1 {
 		orderBy = sorting ASC
 		groupBy = 
 		limit = 
+
+		gallery{
+			width 	= 960c
+			height	= 720
+		}
 	}
 	
 	displayAlbum {
 		markers {
 			TITLE = TEXT
-			TITLE.field = title
+			TITLE{
+				field		= title 
+				stdWrap.typolink{
+
+					parameter.data = page:uid
+					additionalParams = &tx_ingallery_pi1[album] = {field:uid}
+					additionalParams.insertData = 1
+				}
+			}
 
 			PARAMS = TEXT
 			PARAMS{
@@ -30,14 +43,25 @@ plugin.tx_ingallery_pi1 {
 	displayImage{
 		markers {
 			TITLE = TEXT
-			TITLE.field = title
+			TITLE{
+				field 		= title
+				wrap 		= <p class="title">|</p>
+				required 	= 1
+			}
+
+			LEGEND = TEXT
+			LEGEND{
+				field 		= legend
+				wrap 		= <p class="legend">|</p>
+				required 	= 1
+			}
 
 			IMG = IMAGE
 			IMG {
 				file{
 					import.field = image
-					width = 160c
-					height = 120
+					width = {$plugin.tx_ingallery_pi1.gallery.width}
+					height = {$plugin.tx_ingallery_pi1.gallery.height}
 				}
 			}
 		}

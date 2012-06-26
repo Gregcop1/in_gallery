@@ -32,6 +32,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @subpackage tx_gclib
  */
  class tx_ingallery_imageList extends tx_gclib_list { 
+	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
 	var $conf;
 	var $tableName;
 	var $subPart;
@@ -55,16 +56,26 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 }	
 
 	 /**
-	  * Include query part to link album and find the last album if necessary
+	  * Include query part to link album and find the selected or last album if necessary
 	  */
 	 function initFilterQueryParts(){
 	 	$this->query['FROM'] .= ' LEFT JOIN tx_ingallery_album on ( tx_ingallery_album.uid = '.$this->tableName.'.tx_ingallery_album_uid )';
-		$this->query['WHERE'] .= (	$this->config['pidList'] ? ' AND tx_ingallery_album.pid in ('.implode(',', $this->getRecursivePid( $this->config['pidList'], $this->config['recursive'] )).')' : '')
-					. $this->cObj->enableFields('tx_ingallery_album');
-//		$this->query['ORDER BY'] = $this->tableName.'.uid';
-		//$this->query['GROUP BY'] .= ($this->config['groupBy'] ? $this->config['groupBy'] : '');
-		//$this->query['ORDER BY'] .= ($this->config['orderBy'] ? $this->config['orderBy'] : '');
-		//$this->query['LIMIT'] .= ($this->config['limit'] ? $this->config['limit'] : '');
+		
+		//if an album is selected, take this one, else, take the last enabled album (order by sorting)
+		if($this->piVars['album']){
+			$this->query['WHERE'] .= (	$this->config['pidList'] ? ' AND tx_ingallery_album.pid in ('.implode(',', $this->getRecursivePid( $this->config['pidList'], $this->config['recursive'] )).')' : '')
+									. $this->cObj->enableFields('tx_ingallery_album')
+									. ' AND tx_ingallery_image.tx_ingallery_album_uid="'.$this->piVars['album'].'"';
+		}else {
+			$this->query['WHERE'] .= ' AND tx_ingallery_album_uid = ('
+										. 'SELECT tx_ingallery_album.uid'
+										. ' FROM tx_ingallery_album'
+										. ' WHERE 1 '
+										. $this->cObj->enableFields('tx_ingallery_album')
+										. ' ORDER BY tx_ingallery_album.sorting DESC'
+										. ' LIMIT 1'
+									.')';
+		}
 	 }
  }
 
