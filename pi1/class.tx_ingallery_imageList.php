@@ -51,10 +51,14 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 function main($conf, $tableName = '') {
 	 	 parent::main($conf, 'tx_ingallery_image');
 	 	 
+	 	 //insertion de JS à la demande
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/fade.css" media="all">';
+
 	 	 $this->results = $this->execQuery( $this->query );
 	 	 return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
 	 }	
-<<<<<<< HEAD
 
 	 /**
 	  * Include query part to link album and find the selected or last album if necessary
@@ -78,8 +82,6 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 									.')';
 		}
 	 }
-=======
->>>>>>> 7bfd76fb10ca5bc1d825ea176da119440fc630e6
  }
 
 

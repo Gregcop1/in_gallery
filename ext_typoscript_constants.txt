@@ -1,4 +1,4 @@
 plugin.tx_ingallery_pi1 {
-	gallery.width = 990c
-	gallery.height = 740m
+	gallery.width = 790c
+	gallery.height = 600m
 }
