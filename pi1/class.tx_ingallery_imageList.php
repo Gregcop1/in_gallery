@@ -70,6 +70,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 		return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
 	 }	
 
+
 	 /**
 	  * Include query part to link album and find the selected or last album if necessary
 	  */
@@ -92,6 +93,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 									.')';
 		}
 	 }
+
  }
 
 
