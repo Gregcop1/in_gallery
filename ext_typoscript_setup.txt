@@ -12,6 +12,9 @@ plugin.tx_ingallery_pi1 {
 		orderBy = sorting ASC
 		groupBy = 
 		limit = 
+
+		effect = inouit.gallery.effect.fade
+		options =  
 	}
 	
 	displayAlbum {

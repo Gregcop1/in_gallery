@@ -6,14 +6,14 @@
 		<sDEF>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.configuration</sheetTitle>
+					<sheetTitle>LLL:EXT:gc_lib/locallang.xml:flexform.configuration</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 
 					<CODE>
 						<TCEforms>
-							<label>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code</label>
+							<label>LLL:EXT:gc_lib/locallang.xml:flexform.code</label>
 							<config>
 
 								<type>select</type>
@@ -40,6 +40,16 @@
 							</config>
 						</TCEforms>
 					</CODE>
+					<additionalTSConfig>
+						<TCEforms>
+							<label>LLL:EXT:gc_lib/locallang.xml:flexform.additionalTSConfig</label>
+							<config>
+								<type>text</type>
+								<size>10</size>
+								<rows>5</rows>
+							</config>
+						</TCEforms>      
+					</additionalTSConfig>
 					  
 				</el>
 			</ROOT>

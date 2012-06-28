@@ -7,33 +7,33 @@ if(!inouit.gallery) {
 }
 
 inouit.gallery.image = {
+
+	initialize: function(container, effect, options){
+		if(effect) {
+			var effect = jQuery.extend(true,{},effect);
+		
+			effect.options = jQuery.extend(true,effect.options, options);
+			effect.container = container;
+			effect.api = this;
+			
+			effect.initialize();
+		}else {
+			console.log('You must choose an existing effect')
+		}
+	},
+};
+
+
+if(!inouit.gallery.effect){
+	inouit.gallery.effect = {}
+}
+inouit.gallery.effect.default = {
+	api: '',
+	container: '',
 	options: {
 		timerDuration: 3000,
 		loop: true,
 	},
-	container: '',
-	effect: '',
-
-	initialize: function(container, options){
-		if(options && options.effect) {
-			this.effect = options.effect;
-		}else {
-			this.effect = inouit.gallery.effect;
-		}
-		
-		this.container = container;
-		this.options = jQuery.extend(this.options, options);
-		this.effect.api = this;
-		
-		this.effect.initialize();
-	},
-};
-
-inouit.gallery.effect = {
-	api: '',
-	currentItem: 0,
-	timerMax: 0,
-	timer: '',
 
 	initialize: function(){
 		this.buildContainer();
@@ -45,8 +45,8 @@ inouit.gallery.effect = {
 	buildContainer: function(){},
 
 	placeImage: function(){
-		var cHeight = this.api.container.height();
-		this.api.container.children('.item').children('img').each(function(){
+		var cHeight = this.container.height();
+		this.container.children('.item').children('img').each(function(){
 			var iHeight = jQuery(this).attr('height');
 			if(cHeight > iHeight){
 				jQuery(this).css({ 'margin-top': ((cHeight-iHeight)/2)+'px' })
@@ -55,7 +55,7 @@ inouit.gallery.effect = {
 	},
 
 	buildArrows: function(){
-		var cont = this.api.container;
+		var cont = this.container;
 		var arrows = jQuery('<div/>').addClass('arrowsContainer')
 									.appendTo(cont);
 
@@ -78,88 +78,11 @@ inouit.gallery.effect = {
 		this.nextItem();
 	},
 
-	nextItem: function() {console.log('coucou')},
+	nextItem: function() {},
 
 	prevItem: function() {},
 }
 
-
-inouit.gallery.fade = jQuery.extend(inouit.gallery.effect, {
-	api: '',
-	currentItem: 0,
-	timerMax: 0,
-	timer: '',
-
-	initialize: function() {
-		this.api.options = jQuery.extend({
-			fadeDuration: 500
-		},this.api.options);
-
-		this.buildContainer();
-		this.placeImage();
-		this.buildArrows();
-		this.launch();
-	},
-
-	buildContainer: function(){
-		this.api.container.addClass('containerFade');
-		this.api.container.children('.item').fadeOut(0);
-		this.timerCount = this.api.container.children('.item').length;
-	},
-
-	nextItem: function() {
-		clearTimeout(this.timer);
-		var nextItem = '';
-
-		if(!this.currentItem){
-			nextItem = this.api.container.children('.item').first();
-		}else {
-			nextItem = this.currentItem.next('.item');
-			if(!nextItem.html() && this.api.options.loop){
-				nextItem = this.api.container.children('.item').first();
-			}
-		}
-
-		if(nextItem.html()) {
-			if(this.currentItem) {
-				this.currentItem.fadeOut(this.api.options.fadeDuration);
-			}
-		
-			nextItem.fadeIn(this.api.options.fadeDuration);
-			this.currentItem = nextItem;
-			
-			var _this = this;
-			this.timer = setTimeout(function() { _this.nextItem() },this.api.options.timerDuration);
-		}
-	},
-
-	prevItem: function() {
-		clearTimeout(this.timer);
-		var prevItem = '';
-
-		if(this.currentItem) {
-			prevItem = this.currentItem.prev('.item');
-			if(!prevItem.html() && this.api.options.loop){
-				prevItem = this.api.container.children('.item').last();
-			}
-		}
-
-		if(prevItem.html()) {
-			if(this.currentItem) {
-				this.currentItem.fadeOut(this.api.options.fadeDuration);
-			}
-		
-			prevItem.fadeIn(this.api.options.fadeDuration);
-			this.currentItem = prevItem;
-		}
-	},
-});
-
-$.fn.inGallery = function(options) {
-	inouit.gallery.image.initialize(this,options);
+$.fn.inGallery = function(effect, options) {
+	inouit.gallery.image.initialize(this, effect, options);
 }
-
-//@TODO à supprimer
-jQuery(document).ready(function() {
-	jQuery('#imageList').inGallery({effect: inouit.gallery.fade});
-});

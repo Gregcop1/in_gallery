@@ -52,12 +52,22 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 	 parent::main($conf, 'tx_ingallery_image');
 	 	 
 	 	 //insertion de JS à la demande
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/fade.css" media="all">';
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
+	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
+	 	 
+	 	if($this->config['effect'] && file_exists(t3lib_extMgm::extPath('in_gallery').'assets/js/'.$this->config['effect'].'.js')){
+	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['effect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['effect'].'.js"></script>';
 
-	 	 $this->results = $this->execQuery( $this->query );
-	 	 return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
+			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_launcher'] .= "<script type=\"text/javascript\">
+				jQuery(document).ready(function() {
+				jQuery('#c".$this->cObj->data['uid']." .imageList').inGallery(".$this->config['effect'].",{".$this->config['options']."});
+				});
+			</script>";
+		}
+
+		$this->results = $this->execQuery( $this->query );
+		return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
 	 }	
 
 	 /**
