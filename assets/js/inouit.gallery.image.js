@@ -55,23 +55,22 @@ inouit.gallery.effect.default = {
 	},
 
 	buildArrows: function(){
-		var cont = this.container;
-		var arrows = jQuery('<div/>').addClass('arrowsContainer')
-									.appendTo(cont);
+		if(this.container.children('.item').length){
+			var arrows = jQuery('<div/>').addClass('arrowsContainer')
+										.appendTo(this.container);
 
-		var _this = this;
-		var left = jQuery('<a/>').attr('href','javascript:;')
-								.addClass('arrow')
-								.addClass('arrowLeft')
-								.click( function() {_this.prevItem(); })
-								.appendTo(arrows);
-		var right = jQuery('<a/>').attr('href','javascript:;')
-								.addClass('arrow')
-								.addClass('arrowRight')
-								.click( function() {_this.nextItem(); })
-								.appendTo(arrows);
-
-		
+			var _this = this;
+			var left = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('arrow')
+									.addClass('arrowLeft')
+									.click( function() {_this.prevItem(); })
+									.appendTo(arrows);
+			var right = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('arrow')
+									.addClass('arrowRight')
+									.click( function() {_this.nextItem(); })
+									.appendTo(arrows);
+		}
 	},
 
 	launch: function() {
