@@ -28,6 +28,7 @@ if(!inouit.gallery.effect){
 	inouit.gallery.effect = {}
 }
 inouit.gallery.effect.default = {
+	name: 'default',
 	api: '',
 	container: '',
 	options: {

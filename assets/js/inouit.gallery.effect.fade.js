@@ -1,4 +1,7 @@
-inouit.gallery.effect.fade = jQuery.extend(true,inouit.gallery.effect.default, {
+inouit.gallery.effect.fade = jQuery.extend(true,{},inouit.gallery.effect.default);
+jQuery.extend(true,inouit.gallery.effect.fade, {
+	name: 'fade',
+
 	initialize: function() {
 		this.options = jQuery.extend(true,{
 			fadeDuration: 500
@@ -11,7 +14,8 @@ inouit.gallery.effect.fade = jQuery.extend(true,inouit.gallery.effect.default, {
 	},
 
 	buildContainer: function(){
-		this.container.addClass('containerFade');
+		this.container.addClass('containerGallery')
+					.addClass('containerFade');
 		this.container.children('.item').fadeOut(0);
 	},
 
