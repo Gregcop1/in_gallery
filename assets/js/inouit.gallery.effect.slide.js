@@ -8,7 +8,6 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 
 	initialize: function() {
 		this.options = jQuery.extend(true,{
-			slideDuration: 500
 		},this.options);
 
 		this.buildContainer();
@@ -41,7 +40,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 		}
 
 		if(!stop){
-			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, 500);
+			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, this.options.effectDuration);
 
 			var _this = this;
 			this.timer = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
@@ -61,25 +60,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 		}
 
 		if(!stop){
-			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, 500);
+			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, this.options.effectDuration);
 		}
-		/*clearTimeout(this.timer);
-		var prevItem = '';
-
-		if(this.currentItem) {
-			prevItem = this.currentItem.prev('.item');
-			if(!prevItem.length && this.options.loop){
-				prevItem = this.container.children('.item').last();
-			}
-		}
-
-		if(prevItem.length) {
-			if(this.currentItem) {
-				this.currentItem.fadeOut(this.options.slideDuration);
-			}
-		
-			prevItem.fadeIn(this.options.slideDuration);
-			this.currentItem = prevItem;
-		}*/
 	},
 });

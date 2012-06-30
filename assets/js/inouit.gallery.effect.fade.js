@@ -4,7 +4,6 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 
 	initialize: function() {
 		this.options = jQuery.extend(true,{
-			fadeDuration: 500
 		},this.options);
 
 		this.buildContainer();
@@ -34,10 +33,10 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		}
 		if(nextItem.length) {
 			if(this.currentItem) {
-				this.currentItem.fadeOut(this.options.fadeDuration);
+				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 		
-			nextItem.fadeIn(this.options.fadeDuration);
+			nextItem.fadeIn(this.options.effectDuration);
 			this.currentItem = nextItem;
 			
 			var _this = this;
@@ -58,10 +57,10 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 
 		if(prevItem.length) {
 			if(this.currentItem) {
-				this.currentItem.fadeOut(this.options.fadeDuration);
+				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 		
-			prevItem.fadeIn(this.options.fadeDuration);
+			prevItem.fadeIn(this.options.effectDuration);
 			this.currentItem = prevItem;
 		}
 	},

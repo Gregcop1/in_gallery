@@ -33,6 +33,7 @@ inouit.gallery.effect.default = {
 	container: '',
 	options: {
 		timerDuration: 3000,
+		effectDuration: 500,
 		loop: true,
 	},
 
@@ -56,7 +57,7 @@ inouit.gallery.effect.default = {
 	},
 
 	buildArrows: function(){
-		if(this.container.children('.item').length){
+		if(this.container.find('.item').length){
 			var arrows = jQuery('<div/>').addClass('arrowsContainer')
 										.appendTo(this.container);
 
