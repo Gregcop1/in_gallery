@@ -33,31 +33,21 @@ class tx_ingallery_action_tcemainprocdm
             $this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['in_gallery']);
 
             if($status == 'new'){
-                //t3lib_div::debug(array(0 => ($this->getAlbumUid()+1), 1 => $fieldArray,2 => $reference));die();
                 if (isset($fieldArray['path_folder']) && !empty($fieldArray['path_folder'])){
-                    $pathFolder    = $_SERVER['DOCUMENT_ROOT'].$fieldArray['path_folder'];
-                    //t3lib_div::debug(array(0 => $pathFolder));
-                    $refPathFolder = opendir($pathFolder);
-                    $uid = ($this->getAlbumUid()+1);
-                    $sorting = ($this->getImageSorting($uid)+1);
-                    while (false !== ($file = readdir($refPathFolder))) {
-                        if(filetype($pathFolder . $file) == 'file'){
-                            $infosPicture = getimagesize($pathFolder . $file);
-                            $mimeType = $infosPicture['mime'];
-                            if($mimeType == 'image/jpeg' || $mimeType == 'image/png' || $mimeType == 'image/gif'){
-                                if ($infosPicture[0] > $this->extConf['maxWidth'] || $infosPicture[1] > $this->extConf['maxHeight']){
-                                    $this->createResizePicture($pathFolder,$file,$infosPicture,$mimeType);
-                                }
-                                $this->createThumb($pathFolder,$pathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
-                                $this->insertNewPicture($file,$fieldArray['pid'],$sorting,$uid);
-                                $sorting++;
-                            }
-                        }
-                    }
+                    $this->createAndInsertNewPicture($id,$fieldArray);
                 }
             }
             if($status == 'update'){
-
+                $path_folder = $this->getAlbumFolder($id);
+                if (isset($fieldArray['path_folder']) && !empty($fieldArray['path_folder'])){
+                    if ($fieldArray['path_folder'] == $path_folder){
+                        $this->createAndInsertNewPicture($id,$fieldArray);
+                    }
+                }else{
+                    $fieldArray['path_folder'] = $path_folder;
+                    $this->createAndInsertNewPicture($id,$fieldArray);
+                }
+                //t3lib_div::debug(array($status, $table, $id, $fieldArray, $path_folder));die();
             }
         }
 
@@ -72,6 +62,37 @@ class tx_ingallery_action_tcemainprocdm
         }
     }
 
+    function createAndInsertNewPicture($id,$fieldArray){
+        $pathFolder    = $_SERVER['DOCUMENT_ROOT'].$fieldArray['path_folder'];
+        $refPathFolder = opendir($pathFolder);
+        $uid = intval($id);
+        if (!$uid){
+            $uid = ($this->getAlbumUid()+1);
+        }
+        $sorting = ($this->getImageSorting($uid)+1);
+        while (false !== ($file = readdir($refPathFolder))) {
+            if(filetype($pathFolder . $file) == 'file'){
+                $infosPicture = getimagesize($pathFolder . $file);
+                $mimeType = $infosPicture['mime'];
+                if($mimeType == 'image/jpeg' || $mimeType == 'image/png' || $mimeType == 'image/gif'){
+                    $fileExists = $this->getImageByImage($id,$file);
+                    if (empty($fileExists)){
+                        if ($infosPicture[0] > $this->extConf['maxWidth'] || $infosPicture[1] > $this->extConf['maxHeight']){
+                            $this->createResizePicture($pathFolder,$file,$infosPicture,$mimeType);
+                        }
+                        $this->createThumb($pathFolder,$pathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
+                        $pid = $fieldArray['pid'];
+                        if (!$pid){
+                            $pid = $this->getAlbumPid($id);
+                        }
+                        $this->insertNewPicture($file,$pid,$sorting,$uid);
+                        $sorting++;
+                    }
+                }
+            }
+        }        
+    }
+    
     function createResizePicture($pathFolderSrc,$file,$infosPicture,$ext){
         
         $width  = $infosPicture[0];
@@ -80,11 +101,9 @@ class tx_ingallery_action_tcemainprocdm
         if ($width >= $height){
             $newwidth   = $this->extConf['maxWidth'];
             $newheight  = ($height/$width) * $this->extConf['maxWidth'];
-            //t3lib_div::debug(array($width => $newwidth,$height => $newheight));die();
         }else{
             $newwidth   = ($width/$height) * $this->extConf['maxHeight'];
             $newheight  = $this->extConf['maxHeight'];
-            //t3lib_div::debug(array($width => $newwidth,$height => $newheight));die();
         }
         $this->createPicture($pathFolderSrc,$pathFolderSrc,$file,$newwidth,$newheight,$width,$height,$ext);
     }
@@ -124,13 +143,28 @@ class tx_ingallery_action_tcemainprocdm
     }
 
     function getAlbumUid () {
-       $total = $GLOBALS['TYPO3_DB']->exec_SELECTquery('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
-       return $total[0]['total']; 
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
+       return $rec[0]['total']; 
+    }
+
+    function getAlbumPid ($uid) {
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('pid', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
+       return $rec[0]['pid']; 
+    }
+
+    function getAlbumFolder ($uid) {
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('path_folder', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
+       return $rec[0]['path_folder']; 
     }
 
     function getImageSorting ($tx_ingallery_album_uid) {
-       $total = $GLOBALS['TYPO3_DB']->exec_SELECTquery('sorting', 'tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid, $groupBy='', $orderBy=' sorting DESC', $limit='1');
-       return $total[0]['sorting']; 
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid, $groupBy='', $orderBy=' sorting DESC', $limit='1');
+       return $rec[0]['sorting']; 
+    }
+
+    function getImageByImage ($uid = '',$file) {
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
+       return $rec[0]['image']; 
     }
 
     function insertNewPicture($file,$pid,$sorting,$tx_ingallery_album_uid){
