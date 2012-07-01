@@ -24,7 +24,8 @@
 class tx_ingallery_action_tcemainprocdm
 {
     var $extConf;
-
+    var $hashFile       = 1;
+    
     function processDatamap_postProcessFieldArray ($status, $table, $id, &$fieldArray, &$reference){
         global $FILEMOUNTS, $BE_USER, $TYPO3_CONF_VARS;
 
@@ -51,7 +52,6 @@ class tx_ingallery_action_tcemainprocdm
                     $fieldArray['path_folder'] = $path_folder;
                     $this->createAndInsertNewPicture($id,$fieldArray);
                 }
-                //t3lib_div::debug(array($status, $table, $id, $fieldArray, $path_folder));die();
             }
         }
 
@@ -59,9 +59,10 @@ class tx_ingallery_action_tcemainprocdm
             $this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['in_gallery']);
 
             if($status == 'new'){
-                $fieldArray['sorting'] = ($this->getImageSorting($fieldArray['tx_ingallery_album_uid'])+1);
-                    
-                t3lib_div::debug(array(1 => $fieldArray,2 => $reference));die();
+                $fieldArray['sorting'] = ($this->getImageSorting($fieldArray['pid'],$fieldArray['tx_ingallery_album_uid'])+1);
+                $path_folder = $this->getAlbumFolder($fieldArray['tx_ingallery_album_uid']);
+                $pathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
+                $this->checkNewPicture($id,$fieldArray,$pathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
             }
         }
     }
@@ -73,30 +74,39 @@ class tx_ingallery_action_tcemainprocdm
         if (!$uid){
             $uid = ($this->getAlbumUid()+1);
         }
-        $sorting = ($this->getImageSorting($uid)+1);
+        $sorting = ($this->getImageSorting($uid,$fieldArray['tx_ingallery_album_uid'])+1);
         while (false !== ($file = readdir($refPathFolder))) {
-            if(filetype($pathFolder . $file) == 'file'){
-                $infosPicture = getimagesize($pathFolder . $file);
-                $mimeType = $infosPicture['mime'];
-                if($mimeType == 'image/jpeg' || $mimeType == 'image/png' || $mimeType == 'image/gif'){
-                    $fileExists = $this->getImageByImage($id,$file);
-                    if (empty($fileExists)){
-                        if ($infosPicture[0] > $this->extConf['maxWidth'] || $infosPicture[1] > $this->extConf['maxHeight']){
-                            $this->createResizePicture($pathFolder,$file,$infosPicture,$mimeType);
-                        }
-                        $this->createThumb($pathFolder,$pathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
-                        $pid = $fieldArray['pid'];
-                        if (!$pid){
-                            $pid = $this->getAlbumPid($id);
-                        }
-                        $this->insertNewPicture($file,$pid,$sorting,$uid);
-                        $sorting++;
-                    }
-                }
+            if ($this->checkNewPicture($id,$fieldArray,$pathFolder,$file,$sorting,$uid,true)){
+                $sorting++;
             }
         }        
     }
     
+    function checkNewPicture($id,$fieldArray,$pathFolder,$file,$sorting,$uid=0,$insert=true){
+        if(filetype($pathFolder . $file) == 'file'){
+            $infosPicture = getimagesize($pathFolder . $file);
+            $mimeType = $infosPicture['mime'];
+            if($mimeType == 'image/jpeg' || $mimeType == 'image/png' || $mimeType == 'image/gif'){
+                $fileExists = $this->getImageByImage($id,$file);
+                if (empty($fileExists)){
+                    if ($infosPicture[0] > $this->extConf['maxWidth'] || $infosPicture[1] > $this->extConf['maxHeight']){
+                        $this->createResizePicture($pathFolder,$file,$infosPicture,$mimeType);
+                    }
+                    $this->createThumb($pathFolder,$pathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
+                    $pid = $fieldArray['pid'];
+                    if (!$pid){
+                        $pid = $this->getAlbumPid($id);
+                    }
+                    if ($insert){
+                        $this->insertNewPicture($pathFolder,$file,$pid,$sorting,$uid);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;        
+    }
+
     function createResizePicture($pathFolderSrc,$file,$infosPicture,$ext){
         
         $width  = $infosPicture[0];
@@ -165,8 +175,8 @@ class tx_ingallery_action_tcemainprocdm
        return $rec[0]['path_folder']; 
     }
 
-    function getImageSorting ($tx_ingallery_album_uid) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid, $groupBy='', $orderBy=' sorting DESC', $limit='1');
+    function getImageSorting ($pid,$tx_ingallery_album_uid) {
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_image.pid = \''.intval($pid).'\' AND tx_ingallery_album_uid = \''.$tx_ingallery_album_uid.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
        return $rec[0]['sorting']; 
     }
 
@@ -175,13 +185,15 @@ class tx_ingallery_action_tcemainprocdm
        return $rec[0]['image']; 
     }
 
-    function insertNewPicture($file,$pid,$sorting,$tx_ingallery_album_uid){
+    function insertNewPicture($pathFolder,$file,$pid,$sorting,$tx_ingallery_album_uid){
+        $pathFolder = str_replace($_SERVER['DOCUMENT_ROOT'],'',$pathFolder);
+        
         $insertFields = array(
             'title'                             => $file,
             'pid'                               => $pid,
             'legend'                            => '',
             'date'                              => time(),
-            'image'                             => $file,
+            'image'                             => $pathFolder.$file,
             'source'                            => '',
             'copyright'                         => '',
             'hidden'                            => 0,
@@ -192,6 +204,26 @@ class tx_ingallery_action_tcemainprocdm
             'tx_ingallery_album_uid'            => $tx_ingallery_album_uid
         );
         $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_ingallery_image',$insertFields);
+        unset($insertFields);
+
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('uid', 'tx_ingallery_image', ' tx_ingallery_image.pid = \''.intval($pid).'\' AND title = \''.$file.'\'  AND image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
+
+        $insertFields = array(
+            'tablename'     =>  'tx_ingallery_image',
+            'recuid'        =>  $rec[0]['uid'],
+            'field'         =>  'image',
+            'flexpointer'   =>  '',   
+            'softref_key'   =>  '',   
+            'softref_id'    =>  '',
+            'sorting'       =>  '0',
+            'deleted'       =>  '0',
+            'ref_table'     =>  '_FILE',
+            'ref_uid'       =>  '0',
+            'ref_string'    =>  $pathFolder.$file
+        );
+        $insertFields['hash']   =  md5(implode('///', $insertFields) . '///' . $this->hashFile);
+        $GLOBALS['TYPO3_DB']->exec_INSERTquery('sys_refindex',$insertFields);
+        unset($insertFields);
     }
 }
 ?>
