@@ -42,6 +42,10 @@ class tx_ingallery_action_tcemainprocdm
                 if (isset($fieldArray['path_folder']) && !empty($fieldArray['path_folder'])){
                     if ($fieldArray['path_folder'] == $path_folder){
                         $this->createAndInsertNewPicture($id,$fieldArray);
+                    }else{
+                        $this->deleteAllPictures($id);  
+                        $this->createAndInsertNewPicture($id,$fieldArray);  
+                        $fieldArray['tx_ingallery_image_uid'] = '0';
                     }
                 }else{
                     $fieldArray['path_folder'] = $path_folder;
@@ -142,6 +146,10 @@ class tx_ingallery_action_tcemainprocdm
         imagedestroy($srcImg);    
     }
 
+    function deleteAllPictures($tx_ingallery_album_uid){
+       $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid); 
+    }
+
     function getAlbumUid () {
        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
        return $rec[0]['total']; 
@@ -162,8 +170,8 @@ class tx_ingallery_action_tcemainprocdm
        return $rec[0]['sorting']; 
     }
 
-    function getImageByImage ($uid = '',$file) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
+    function getImageByImage ($tx_ingallery_album_uid = '',$file) {
+       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($tx_ingallery_album_uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
        return $rec[0]['image']; 
     }
 
