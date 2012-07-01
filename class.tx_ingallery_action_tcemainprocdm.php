@@ -61,44 +61,44 @@ class tx_ingallery_action_tcemainprocdm
             if($status == 'new'){
                 $fieldArray['sorting'] = ($this->getImageSorting($fieldArray['pid'],$fieldArray['tx_ingallery_album_uid'])+1);
                 $path_folder = $this->getAlbumFolder($fieldArray['tx_ingallery_album_uid']);
-                $pathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
-                $this->checkNewPicture($id,$fieldArray,$pathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
+                $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
+                $this->checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
             }
         }
     }
 
     function createAndInsertNewPicture($id,$fieldArray){
-        $pathFolder    = $_SERVER['DOCUMENT_ROOT'].$fieldArray['path_folder'];
-        $refPathFolder = opendir($pathFolder);
+        $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$fieldArray['path_folder'];
+        $fullePefPathFolder = opendir($fullePathFolder);
         $uid = intval($id);
         if (!$uid){
             $uid = ($this->getAlbumUid()+1);
         }
         $sorting = ($this->getImageSorting($uid,$fieldArray['tx_ingallery_album_uid'])+1);
-        while (false !== ($file = readdir($refPathFolder))) {
-            if ($this->checkNewPicture($id,$fieldArray,$pathFolder,$file,$sorting,$uid,true)){
+        while (false !== ($file = readdir($fullePefPathFolder))) {
+            if ($this->checkNewPicture($id,$fieldArray,$fieldArray['path_folder'],$fullePathFolder,$file,$sorting,$uid,true)){
                 $sorting++;
             }
         }        
     }
     
-    function checkNewPicture($id,$fieldArray,$pathFolder,$file,$sorting,$uid=0,$insert=true){
-        if(filetype($pathFolder . $file) == 'file'){
-            $infosPicture = getimagesize($pathFolder . $file);
+    function checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,$file,$sorting,$uid=0,$insert=true){
+        if(filetype($fullePathFolder . $file) == 'file'){
+            $infosPicture = getimagesize($fullePathFolder . $file);
             $mimeType = $infosPicture['mime'];
             if($mimeType == 'image/jpeg' || $mimeType == 'image/png' || $mimeType == 'image/gif'){
-                $fileExists = $this->getImageByImage($id,$file);
+                $fileExists = $this->getImageByImage($id,$path_folder.$file);
                 if (empty($fileExists)){
                     if ($infosPicture[0] > $this->extConf['maxWidth'] || $infosPicture[1] > $this->extConf['maxHeight']){
-                        $this->createResizePicture($pathFolder,$file,$infosPicture,$mimeType);
+                        $this->createResizePicture($fullePathFolder,$file,$infosPicture,$mimeType);
                     }
-                    $this->createThumb($pathFolder,$pathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
+                    $this->createThumb($fullePathFolder,$fullePathFolder.'Thumbs/',$file,0.2,$infosPicture[0],$infosPicture[1],$mimeType);
                     $pid = $fieldArray['pid'];
                     if (!$pid){
                         $pid = $this->getAlbumPid($id);
                     }
                     if ($insert){
-                        $this->insertNewPicture($pathFolder,$file,$pid,$sorting,$uid);
+                        $this->insertNewPicture($path_folder,$fullePathFolder,$file,$pid,$sorting,$uid);
                     }
                     return true;
                 }
@@ -107,7 +107,7 @@ class tx_ingallery_action_tcemainprocdm
         return false;        
     }
 
-    function createResizePicture($pathFolderSrc,$file,$infosPicture,$ext){
+    function createResizePicture($fullePathFolderSrc,$file,$infosPicture,$ext){
         
         $width  = $infosPicture[0];
         $height = $infosPicture[1];
@@ -119,38 +119,38 @@ class tx_ingallery_action_tcemainprocdm
             $newwidth   = ($width/$height) * $this->extConf['maxHeight'];
             $newheight  = $this->extConf['maxHeight'];
         }
-        $this->createPicture($pathFolderSrc,$pathFolderSrc,$file,$newwidth,$newheight,$width,$height,$ext);
+        $this->createPicture($fullePathFolderSrc,$fullePathFolderSrc,$file,$newwidth,$newheight,$width,$height,$ext);
     }
 
-    function createThumb($pathFolderSrc,$pathFolderDst,$file,$percent = 0.5,$width,$height,$ext){
-        if (! file_exists( $pathFolderDst )){
-            mkdir($pathFolderDst);
+    function createThumb($fullePathFolderSrc,$fullePathFolderDst,$file,$percent = 0.5,$width,$height,$ext){
+        if (! file_exists( $fullePathFolderDst )){
+            mkdir($fullePathFolderDst);
         }
 
         $newwidth = $width * $percent;
         $newheight = $height * $percent;
 
-        $this->createPicture($pathFolderSrc,$pathFolderDst,$file,$newwidth,$newheight,$width,$height,$ext);
+        $this->createPicture($fullePathFolderSrc,$fullePathFolderDst,$file,$newwidth,$newheight,$width,$height,$ext);
 
     }
 
-    function createPicture($pathFolderSrc,$pathFolderDst,$file,$newwidth,$newheight,$width,$height,$ext) {
+    function createPicture($fullePathFolderSrc,$fullePathFolderDst,$file,$newwidth,$newheight,$width,$height,$ext) {
         $newImg = imagecreatetruecolor($newwidth, $newheight);
         if ($ext == 'image/jpeg')
-            $srcImg = imagecreatefromjpeg($pathFolderSrc.$file);
+            $srcImg = imagecreatefromjpeg($fullePathFolderSrc.$file);
         if ($ext == 'image/png')
-            $srcImg = imagecreatefrompng($pathFolderSrc.$file);
+            $srcImg = imagecreatefrompng($fullePathFolderSrc.$file);
         if ($ext == 'image/gif')
-            $srcImg = imagecreatefromgif($pathFolderSrc.$file);
+            $srcImg = imagecreatefromgif($fullePathFolderSrc.$file);
 
         imagecopyresized($newImg, $srcImg, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
         
         if ($ext == 'image/jpeg')
-            imagejpeg($newImg,$pathFolderDst.$file,100);
+            imagejpeg($newImg,$fullePathFolderDst.$file,100);
         if ($ext == 'image/png')
-            imagepng($newImg,$pathFolderDst.$file,100);
+            imagepng($newImg,$fullePathFolderDst.$file,100);
         if ($ext == 'image/gif')
-            imagegif($newImg,$pathFolderDst.$file,100);
+            imagegif($newImg,$fullePathFolderDst.$file,100);
 
         imagedestroy($newImg);
         imagedestroy($srcImg);    
@@ -185,15 +185,14 @@ class tx_ingallery_action_tcemainprocdm
        return $rec[0]['image']; 
     }
 
-    function insertNewPicture($pathFolder,$file,$pid,$sorting,$tx_ingallery_album_uid){
-        $pathFolder = str_replace($_SERVER['DOCUMENT_ROOT'],'',$pathFolder);
+    function insertNewPicture($path_folder,$fullePathFolder,$file,$pid,$sorting,$tx_ingallery_album_uid){
         
         $insertFields = array(
             'title'                             => $file,
             'pid'                               => $pid,
             'legend'                            => '',
             'date'                              => time(),
-            'image'                             => $pathFolder.$file,
+            'image'                             => $path_folder.$file,
             'source'                            => '',
             'copyright'                         => '',
             'hidden'                            => 0,
@@ -219,7 +218,7 @@ class tx_ingallery_action_tcemainprocdm
             'deleted'       =>  '0',
             'ref_table'     =>  '_FILE',
             'ref_uid'       =>  '0',
-            'ref_string'    =>  $pathFolder.$file
+            'ref_string'    =>  $path_folder.$file
         );
         $insertFields['hash']   =  md5(implode('///', $insertFields) . '///' . $this->hashFile);
         $GLOBALS['TYPO3_DB']->exec_INSERTquery('sys_refindex',$insertFields);
