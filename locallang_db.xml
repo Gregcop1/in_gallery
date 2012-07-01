@@ -8,29 +8,45 @@
 		<languageKey index="default" type="array">
 			<label index="tx_ingallery_album">Album</label>
 			<label index="tx_ingallery_album.title">Title</label>
-			<label index="tx_ingallery_album.imagesfolder">Images folder</label>
+			<label index="tx_ingallery_album.description">Description</label>
+			<label index="tx_ingallery_album.path_folder">Images folder</label>
+			<label index="tx_ingallery_album.tx_ingallery_category_uid">Category</label>
+			<label index="tx_ingallery_album.tx_ingallery_image_uid">Image Preview</label>
 			<label index="tx_ingallery_image">Image</label>
 			<label index="tx_ingallery_image.title">Title</label>
+			<label index="tx_ingallery_image.tx_ingallery_album_uid">Album</label>
 			<label index="tx_ingallery_image.legend">Legend</label>
+			<label index="tx_ingallery_image.embed">Video (embed)</label>
+			<label index="tx_ingallery_image.link">Link</label>
 			<label index="tx_ingallery_image.date">Date</label>
 			<label index="tx_ingallery_image.source">Source</label>
 			<label index="tx_ingallery_image.copyright">Copyright</label>
 			<label index="tx_ingallery_image.image">Image</label>
 			<label index="tx_ingallery_image.album">Album</label>
+			<label index="tx_ingallery_category">Category</label>
+			<label index="tx_ingallery_category.title">Title</label>
 			<label index="tt_content.list_type_pi1">Gallery</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="tx_ingallery_album">Album</label>
 			<label index="tx_ingallery_album.title">Titre</label>
-			<label index="tx_ingallery_album.imagesfolder">Dossier d'images</label>
+			<label index="tx_ingallery_album.description">Description</label>
+			<label index="tx_ingallery_album.path_folder">Dossier d'images</label>
+			<label index="tx_ingallery_album.tx_ingallery_category_uid">Categories</label>
+			<label index="tx_ingallery_album.tx_ingallery_image_uid">Image de prévisualisation</label>
 			<label index="tx_ingallery_image">Image</label>
 			<label index="tx_ingallery_image.title">Titre</label>
+			<label index="tx_ingallery_image.tx_ingallery_album_uid">Album</label>
 			<label index="tx_ingallery_image.legend">Légende</label>
+			<label index="tx_ingallery_image.embed">Vidéo (embed)</label>
+			<label index="tx_ingallery_image.link">Lien</label>
 			<label index="tx_ingallery_image.date">Date</label>
 			<label index="tx_ingallery_image.source">Source</label>
 			<label index="tx_ingallery_image.copyright">Copyright</label>
 			<label index="tx_ingallery_image.image">Image</label>
 			<label index="tx_ingallery_image.album">Album</label>
+			<label index="tx_ingallery_category">Categorie</label>
+			<label index="tx_ingallery_category.title">Titre</label>
 			<label index="tt_content.list_type_pi1">Galerie</label>
 		</languageKey>
 	</data>

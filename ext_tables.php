@@ -46,11 +46,11 @@ $TCA['tx_ingallery_image'] = array (
 );
 
 
-t3lib_extMgm::allowTableOnStandardPages('tx_ingallery_cat');
+t3lib_extMgm::allowTableOnStandardPages('tx_ingallery_category');
 
-$TCA['tx_ingallery_cat'] = array (
+$TCA['tx_ingallery_category'] = array (
 	'ctrl' => array (
-		'title'     => 'LLL:EXT:in_gallery/locallang_db.xml:tx_ingallery_cat',		
+		'title'     => 'LLL:EXT:in_gallery/locallang_db.xml:tx_ingallery_category',		
 		'label'     => 'title',	
 		'tstamp'    => 'tstamp',
 		'crdate'    => 'crdate',
@@ -65,7 +65,7 @@ $TCA['tx_ingallery_cat'] = array (
 			'starttime' => 'starttime',
 		),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
-		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_ingallery_cat.gif',
+		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_ingallery_category.gif',
 	),
 );
 
