@@ -12,7 +12,7 @@
 			<label index="extmng.maxWidth">Max Weight</label>
 			<label index="extmng.includeJquery">Include Jquery</label>
 			<label index="extmng.includeCSS">Include CSS</label>
-			<label index="extmng.includeFancyBox">Include FancyBox</label>
+			<label index="extmng.includeFancyBox">includeFancyBox FancyBox</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="pi1_title">Galerie</label>
@@ -21,7 +21,7 @@
 			<label index="extmng.maxWidth">Max Weight</label>
 			<label index="extmng.includeJquery">Include Jquery</label>
 			<label index="extmng.includeCSS">Include CSS</label>
-			<label index="extmng.includeFancyBox">Include FancyBox</label>
+			<label index="extmng.includeFancyBox">includeFancyBox FancyBox</label>
 		</languageKey>
 	</data>
 </T3locallang>
