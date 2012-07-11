@@ -11,3 +11,6 @@
 .tx-ingallery-pi1 .arrowsContainer .arrow { position: absolute; top: 0; bottom: 0; width: 65px; z-index: 20; }
 .tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 0; background: url(../img/left.png) 0 50% no-repeat; }
 .tx-ingallery-pi1 .arrowsContainer .arrowRight { right: 0; background: url(../img/right.png) 100% 50% no-repeat; }
+
+#albumList { wdith: 100%;}
+#albumList li { display: inline-block; vertical-align: top; }

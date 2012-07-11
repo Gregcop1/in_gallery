@@ -24,16 +24,51 @@ plugin.tx_ingallery_pi1 {
 				field		= title 
 				stdWrap.typolink{
 
-					parameter.data = page:uid
+					parameter = {$plugin.tx_ingallery_pi1.singlePid}
+					parameter.ifEmpty.data = page:uid
 					additionalParams = &tx_ingallery_pi1[album] = {field:uid}
 					additionalParams.insertData = 1
 				}
+			}
+
+			DESC = TEXT
+			DESC{
+				field		= description 
+			}
+
+			CREATEDATE = TEXT
+			CREATEDATE{
+				field		= crdate
+				stdWrap.strftime= Ajouté le %d %b %Y 
 			}
 
 			PARAMS = TEXT
 			PARAMS{
 				value = class="item item-{field:uid}"
 				insertData = 1
+			}
+			
+			IMG = CONTENT
+			IMG{
+				table = tx_ingallery_image
+				select{
+					uidInList.fied = tx_ingallery_image_uid
+					pidInList.field = pid
+					leftjoin  = tx_ingallery_album on (tx_ingallery_image.uid=tx_ingallery_album.tx_ingallery_image_uid )
+					andWhere = tx_ingallery_image.uid = {field:tx_ingallery_image_uid}
+					andWhere.insertData = 1
+				}
+				renderObj = COA
+				renderObj{						
+				  10 = IMAGE
+				  10{
+					file{
+					  import.field = image
+					  width = 260m
+					  height = 150c
+					}
+				  }
+				}
 			}
 		}
 	}
