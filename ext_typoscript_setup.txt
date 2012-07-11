@@ -60,14 +60,16 @@ plugin.tx_ingallery_pi1 {
 				}
 				renderObj = COA
 				renderObj{						
-				  10 = IMAGE
-				  10{
-					file{
-					  import.field = image
-					  width = 260m
-					  height = 150c
+				  	10 = IMAGE
+				  	10{
+						file{
+						  	import.field = image
+						  	quality = 100
+							width = 260m
+							height = 150c
+						}
+						altText.field = title
 					}
-				  }
 				}
 			}
 		}
@@ -80,6 +82,25 @@ plugin.tx_ingallery_pi1 {
 				field 		= title
 				wrap 		= <p class="title">|</p>
 				required 	= 1
+			}
+
+			ALBUM_TITLE = CONTENT
+			ALBUM_TITLE{
+				table = tx_ingallery_album
+				select{
+					pidInList.field = pid
+					andWhere = tx_ingallery_album.uid = {field:tx_ingallery_album_uid}
+					andWhere.insertData = 1
+				}
+				renderObj = COA
+				renderObj{						
+				  	10 = TEXT
+				  	10{
+				  		field 		= title
+				  		wrap 		= <h2>|</h2>
+				  		required 	= 1
+				  	}
+				}
 			}
 
 			LEGEND = TEXT
@@ -95,6 +116,12 @@ plugin.tx_ingallery_pi1 {
 					import.field = image
 					width = {$plugin.tx_ingallery_pi1.gallery.width}
 					height = {$plugin.tx_ingallery_pi1.gallery.height}
+					quality = 100
+				}
+				altText.field = title
+				stdWrap.typolink{
+					parameter.field = image
+					ATagParams = class="openPicOnFancyBox"
 				}
 			}
 		}

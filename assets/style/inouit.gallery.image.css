@@ -1,5 +1,11 @@
-.tx-ingallery-pi1 { position: relative; }
-.tx-ingallery-pi1 .containerGallery { margin: 20px 0; height: 600px; }
+.tx-ingallery-pi1 { display:inline-block: width:100%; }
+.tx-ingallery-pi1 h1,
+.tx-ingallery-pi1 h2,
+.tx-ingallery-pi1 h3,
+.tx-ingallery-pi1 h4,
+.tx-ingallery-pi1 h5,
+.tx-ingallery-pi1 h6 {display: inline-block; width: 100%;}
+.tx-ingallery-pi1 .containerGallery { position: relative; margin: 0px 0; height: 660px; }
 .tx-ingallery-pi1 .containerGallery .item { height: 100%; text-align: center; }
 .tx-ingallery-pi1 .containerGallery .label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background-color: black; background-color: rgba(0,0,0,.8); color: white; text-align: left; }
 .tx-ingallery-pi1 .containerGallery .title { font-weight: bold; }

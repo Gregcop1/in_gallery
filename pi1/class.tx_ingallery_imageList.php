@@ -50,10 +50,19 @@ class tx_ingallery_imageList extends tx_gclib_list {
 	 */
 	function main($conf, $tableName = '') {
 	 	parent::main($conf, 'tx_ingallery_image');
-	 	 
+	 	$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['in_gallery']);
+	 	
 	 	//insertion de JS à la demande
-	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
-	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
+	 	if ($this->extConf['includeCSS']){
+			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
+	 	}
+	 	if ($this->extConf['includeJquery']){
+		 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
+		}
+	 	if ($this->extConf['includeFancyBox']){
+		 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery_fancybox_js'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/jquery.fancybox/fancybox/jquery.fancybox-1.3.4.js"></script>';
+			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery_fancybox_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/jquery.fancybox/fancybox/jquery.fancybox-1.3.4.css" media="all">';
+		}
 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
 	 	 
 	 	if($this->config['effect'] && file_exists(t3lib_extMgm::extPath('in_gallery').'assets/js/'.$this->config['effect'].'.js')){

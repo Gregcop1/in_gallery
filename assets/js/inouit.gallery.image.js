@@ -41,6 +41,7 @@ inouit.gallery.effect.default = {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
+		this.loadFancyBox();
 		this.launch();
 	},
 
@@ -82,6 +83,25 @@ inouit.gallery.effect.default = {
 	nextItem: function() {},
 
 	prevItem: function() {},
+
+	loadFancyBox: function(){
+		if (jQuery('.openPicOnFancyBox').fancybox){
+			var _this = this;
+			jQuery('.openPicOnFancyBox').fancybox({
+				'onStart'	: function () {_this.stopEffect(_this.timer)},
+				'onClosed'	: function () {_this.startEffect(_this)}
+			});
+		}
+	},
+
+
+	stopEffect: function(timer) {
+		clearTimeout(timer);
+	},
+
+	startEffect: function(obj) {
+		obj.timer = setTimeout(function() { obj.launch() },obj.options.timerDuration);
+	},
 }
 
 $.fn.inGallery = function(effect, options) {

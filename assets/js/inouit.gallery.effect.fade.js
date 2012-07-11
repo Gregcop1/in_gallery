@@ -9,6 +9,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
+		this.loadFancyBox();
 		this.launch();
 	},
 
