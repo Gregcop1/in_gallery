@@ -225,7 +225,7 @@ $TCA['tx_ingallery_image'] = array (
 				'foreign_table' => 'tx_ingallery_album',	
 				'foreign_table_where' => ' AND tx_ingallery_album.pid=###CURRENT_PID### AND tx_ingallery_album.sys_language_uid IN (-1,0) ORDER BY tx_ingallery_album.title',	
 				'size' => 1,	
-				'minitems' => 0,
+				'minitems' => 1,
 				'maxitems' => 1,
 			)
 		),
