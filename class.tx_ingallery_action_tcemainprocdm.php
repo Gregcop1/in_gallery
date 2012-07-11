@@ -64,6 +64,18 @@ class tx_ingallery_action_tcemainprocdm
                 $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
                 $this->checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
             }
+            if($status == 'update'){
+                if (isset($fieldArray['image']) && !empty($fieldArray['image'])){
+                    $album_uid = $this->getImageAlbumUid($id);
+                    $path_folder = $this->getAlbumFolder($album_uid);
+                    $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
+                    //t3lib_div::debug(array($path_folder,$fullePathFolder));die();
+                    
+                    $this->cleanSysRefIndex($id,$fieldArray['image']);
+
+                    $this->checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
+                }
+            }
         }
     }
 
@@ -157,32 +169,43 @@ class tx_ingallery_action_tcemainprocdm
     }
 
     function deleteAllPictures($tx_ingallery_album_uid){
-       $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid); 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_ingallery_image', 'tx_ingallery_album_uid='.$tx_ingallery_album_uid, $groupBy='', $orderBy='', $limit='');
+        if (isset($rec) && count($rec) > 0){
+            foreach($rec as $pic){
+                $this->cleanSysRefIndex($pic['uid'],$pic['image']);
+            }
+        }
+        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid); 
     }
 
     function getAlbumUid () {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
-       return $rec[0]['total']; 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
+        return $rec[0]['total']; 
     }
 
     function getAlbumPid ($uid) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('pid', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
-       return $rec[0]['pid']; 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('pid', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
+        return $rec[0]['pid']; 
     }
 
     function getAlbumFolder ($uid) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('path_folder', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
-       return $rec[0]['path_folder']; 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('path_folder', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
+        return $rec[0]['path_folder']; 
     }
 
     function getImageSorting ($pid,$tx_ingallery_album_uid) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_image.pid = \''.intval($pid).'\' AND tx_ingallery_album_uid = \''.$tx_ingallery_album_uid.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
-       return $rec[0]['sorting']; 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_image.pid = \''.intval($pid).'\' AND tx_ingallery_album_uid = \''.$tx_ingallery_album_uid.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
+        return $rec[0]['sorting']; 
     }
 
     function getImageByImage ($tx_ingallery_album_uid = '',$file) {
-       $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($tx_ingallery_album_uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
-       return $rec[0]['image']; 
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($tx_ingallery_album_uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
+        return $rec[0]['image']; 
+    }
+
+    function getImageAlbumUid ($uid) {
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('tx_ingallery_album_uid', 'tx_ingallery_image', 'tx_ingallery_image.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
+        return $rec[0]['tx_ingallery_album_uid']; 
     }
 
     function insertNewPicture($path_folder,$fullePathFolder,$file,$pid,$sorting,$tx_ingallery_album_uid){
@@ -223,6 +246,19 @@ class tx_ingallery_action_tcemainprocdm
         $insertFields['hash']   =  md5(implode('///', $insertFields) . '///' . $this->hashFile);
         $GLOBALS['TYPO3_DB']->exec_INSERTquery('sys_refindex',$insertFields);
         unset($insertFields);
+    }
+
+    function cleanSysRefIndex ($recuid,$ref_string){
+
+        $deleteFields = array(
+            'tablename'     =>  '\'tx_ingallery_image\'',
+            'recuid'        =>  '\''.$recuid.'\'',
+            'field'         =>  '\'image\'',
+            'ref_table'     =>  '\'_FILE\'',
+            'ref_string'    =>  '\''.$ref_string.'\''
+        );
+        
+        $GLOBALS['TYPO3_DB']->exec_DELETEquery('sys_refindex',implode(' AND ',$deleteFields));
     }
 }
 ?>
