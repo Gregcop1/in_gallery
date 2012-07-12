@@ -14,6 +14,8 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 		this.placeImage();
 		this.buildArrows();
 		this.loadFancyBox();
+		this.buildMiniList();
+		this.buildMiniArrows();
 		this.launch();
 	},
 

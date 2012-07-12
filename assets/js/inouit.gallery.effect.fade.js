@@ -9,6 +9,8 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
+		this.buildMiniList();
+		this.buildMiniArrows();
 		this.loadFancyBox();
 		this.launch();
 	},
@@ -56,13 +58,28 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			}
 		}
 
-		if(prevItem.length) {
+		this.goNextItem(nextItem);
+	},
+
+	showItem: function(item,timer) {
+		clearTimeout(timer);
+		var nbrMiniPic = item.attr('class');
+		nbrMiniPic = nbrMiniPic.replace('itemMiniPic_','');
+		var nextItem = jQuery('.itemPic_'+nbrMiniPic).parent('.item');
+		this.goNextItem(nextItem);
+	},
+
+	goNextItem: function (nextItem) {
+		if(nextItem.length) {
 			if(this.currentItem) {
 				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 		
-			prevItem.fadeIn(this.options.effectDuration);
-			this.currentItem = prevItem;
-		}
+			nextItem.fadeIn(this.options.effectDuration);
+			this.currentItem = nextItem;
+			
+			var _this = this;
+			this.timer = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+		}		
 	},
 });

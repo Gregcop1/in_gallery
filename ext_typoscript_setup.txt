@@ -28,6 +28,7 @@ plugin.tx_ingallery_pi1 {
 					parameter.ifEmpty.data = page:uid
 					additionalParams = &tx_ingallery_pi1[album] = {field:uid}
 					additionalParams.insertData = 1
+					ATagParams = class="openAlbumOnFancyBox"
 				}
 			}
 
@@ -65,10 +66,17 @@ plugin.tx_ingallery_pi1 {
 						file{
 						  	import.field = image
 						  	quality = 100
-							width = 260m
-							height = 150c
+							width = 280c
+							height = 150m
 						}
 						altText.field = title
+						stdWrap.typolink{
+							parameter = {$plugin.tx_ingallery_pi1.singlePid}
+							parameter.ifEmpty.data = page:uid
+							additionalParams = &tx_ingallery_pi1[album] = {field:uid}
+							additionalParams.insertData = 1
+							ATagParams = class="openAlbumOnFancyBox"
+						}
 					}
 				}
 			}
@@ -116,12 +124,44 @@ plugin.tx_ingallery_pi1 {
 					import.field = image
 					width = {$plugin.tx_ingallery_pi1.gallery.width}
 					height = {$plugin.tx_ingallery_pi1.gallery.height}
+					maxW = {$plugin.tx_ingallery_pi1.gallery.maxW}
+					maxH = {$plugin.tx_ingallery_pi1.gallery.maxH}
 					quality = 100
 				}
 				altText.field = title
 				stdWrap.typolink{
 					parameter.field = image
-					ATagParams = class="openPicOnFancyBox"
+					ATagParams = class="openPicOnFancyBox itemPic_{field:uid}"
+					ATagParams.insertData=1
+				}
+			}
+
+			ALBUM_MINI_LIST = CONTENT
+			ALBUM_MINI_LIST{
+				wrap = <div class="galleryContenerMiniList"><ul class="albumMiniList">|</ul><div class="arrowsMiniContainer"></div></div>
+
+				table = tx_ingallery_album
+				select{
+					uidInList.fied = tx_ingallery_album_uid
+					pidInList.field = pid
+					leftjoin  = tx_ingallery_image on (tx_ingallery_image.tx_ingallery_album_uid=tx_ingallery_album.uid)
+					andWhere = tx_ingallery_album.uid = {field:tx_ingallery_album_uid}
+					andWhere.insertData = 1
+				}
+				renderObj = COA
+				renderObj{						
+				  	wrap = <li class="itemMiniPic_{field:uid}">|</li>
+				  	wrap.insertData=1
+				  	10 = IMAGE
+				  	10{
+						file{
+						  	import.field = image
+						  	quality = 100
+							width = 125c
+							height = 80m
+						}
+						altText.field = title
+					}
 				}
 			}
 		}
