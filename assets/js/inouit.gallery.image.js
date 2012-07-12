@@ -1,3 +1,8 @@
+timerImage = '';
+containerImage='';
+currentItem='';
+prevItem='';
+nextItem='';
 if(!inouit) {
 	var inouit = {};
 }
@@ -14,6 +19,7 @@ inouit.gallery.image = {
 		
 			effect.options = jQuery.extend(true,effect.options, options);
 			effect.container = container;
+			containerImage = container;
 			effect.api = this;
 			
 			effect.initialize();
@@ -35,34 +41,21 @@ inouit.gallery.effect.default = {
 		timerDuration: 3000,
 		effectDuration: 500,
 		loop: true,
-		fancyBoxAlbum: false,
 		fancyBoxImage: false,
 	},
+	timer: '',
 
 	initialize: function(){
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
-		this.buildMiniList();
-		this.buildMiniArrows();
 		this.loadFancyBox();
 		this.launch();
 	},
 
-	buildContainer: function(){},
-	
-	buildMiniList: function(){
-		var _this = this;
-		jQuery('.galleryContenerMiniList').addClass('hoverFlowHidden');
-		jQuery('.albumMiniList li').click( function(){ _this.showItem(jQuery(this),_this.timer); });
+	getContainer: function () { return containerImage},
 
-		var widthTotal = 0;
-		var objMiniPicture = jQuery('.albumMiniList > li');
-		objMiniPicture.each(function(){
-			widthTotal = widthTotal + jQuery(this).width()+parseInt( (jQuery(this).css('marginLeft')).replace('px','') )+parseInt( (jQuery(this).css('marginRight')).replace('px','') );
-		});
-		jQuery('.albumMiniList').width(widthTotal+'px');		
-	},
+	buildContainer: function(){},
 
 	placeImage: function(){
 		var cHeight = this.container.height();
@@ -97,46 +90,6 @@ inouit.gallery.effect.default = {
 		}
 	},
 
-	buildMiniArrows: function(){
-		var miniList = jQuery('.albumMiniList');
-		if(miniList.find('li').length){
-			var arrows = jQuery('.arrowsMiniContainer');
-
-			var _this = this;
-			var left = jQuery('<a/>').attr('href','javascript:;')
-									.addClass('arrow')
-									.addClass('arrowLeft')
-									.click( function() {_this.prevMiniItem(); })
-									.appendTo(arrows);
-			var right = jQuery('<a/>').attr('href','javascript:;')
-									.addClass('arrow')
-									.addClass('arrowRight')
-									.click( function() {_this.nextMiniItem(); })
-									.appendTo(arrows);
-
-			miniList.hover(function(){
-				_this.miniArrowsAddShow(left,right);
-			},function(){
-				_this.miniArrowsRemoveShow(left,right);
-			});
-			arrows.hover(function(){
-				_this.miniArrowsAddShow(left,right);
-			},function(){
-				_this.miniArrowsRemoveShow(left,right);
-			});
-		}
-	},
-
-	miniArrowsAddShow: function (left,right) {
-		left.addClass('arrowLeftShow');
-		right.addClass('arrowRightShow');
-	},
-
-	miniArrowsRemoveShow: function (left,right) {
-		left.removeClass('arrowLeftShow');
-		right.removeClass('arrowRightShow');
-	},
-
 	launch: function() {
 		this.nextItem();
 	},
@@ -152,7 +105,7 @@ inouit.gallery.effect.default = {
 			if (jQuery('.openPicOnFancyBox').fancybox){
 				var _this = this;
 				jQuery('.openPicOnFancyBox').fancybox({
-					'onStart'	: function () {_this.stopEffect(_this.timer)},
+					'onStart'	: function () {_this.stopEffect()},
 					'onClosed'	: function () {_this.startEffect(_this)}
 				});
 			}
@@ -162,12 +115,12 @@ inouit.gallery.effect.default = {
 		}
 	},
 
-	stopEffect: function(timer) {
-		clearTimeout(timer);
+	stopEffect: function() {
+		clearTimeout(timerImage);
 	},
 
 	startEffect: function(obj) {
-		obj.timer = setTimeout(function() { obj.launch() },obj.options.timerDuration);
+		timerImage = setTimeout(function() { obj.launch() },obj.options.timerDuration);
 	},
 }
 

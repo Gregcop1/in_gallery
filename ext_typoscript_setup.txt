@@ -14,7 +14,10 @@ plugin.tx_ingallery_pi1 {
 		limit = 
 
 		effect = inouit.gallery.effect.fade
-		options =  
+		effectOptions =  fancyBoxImage: true,
+		
+		navEffect = inouit.gallery.navEffect.slide
+		navEffectOptions =  
 	}
 	
 	displayAlbum {
@@ -159,6 +162,8 @@ plugin.tx_ingallery_pi1 {
 						  	quality = 100
 							width = 125c
 							height = 80m
+							maxW = 125c
+							maxH = 80m
 						}
 						altText.field = title
 					}

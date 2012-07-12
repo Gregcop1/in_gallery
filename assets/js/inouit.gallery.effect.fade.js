@@ -1,6 +1,7 @@
 inouit.gallery.effect.fade = jQuery.extend(true,{},inouit.gallery.effect.default);
 jQuery.extend(true,inouit.gallery.effect.fade, {
 	name: 'fade',
+	timer: '',
 
 	initialize: function() {
 		this.options = jQuery.extend(true,{
@@ -9,8 +10,6 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
-		this.buildMiniList();
-		this.buildMiniArrows();
 		this.loadFancyBox();
 		this.launch();
 	},
@@ -23,63 +22,63 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 
 	nextItem: function() {
 
-		clearTimeout(this.timer);
-		var nextItem = '';
-
-		if(!this.currentItem){
+		clearTimeout(timerImage);
+		if(!this.container){
+			this.container = this.getContainer();
+		}
+		if(!currentItem){
 			nextItem = this.container.children('.item').first();
-		}else {
-			nextItem = this.currentItem.next('.item');
+		}else{
+			nextItem = currentItem.next('.item');
 			if(!nextItem.length && this.options.loop){
-				nextItem = this.container.children('.item').first();
+				nextItem = currentItem.parent().children('.item').first();
 			}
 		}
-		if(nextItem.length) {
-			if(this.currentItem) {
-				this.currentItem.fadeOut(this.options.effectDuration);
-			}
-		
-			nextItem.fadeIn(this.options.effectDuration);
-			this.currentItem = nextItem;
-			
-			var _this = this;
-			this.timer = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
-		}
+		this.goNextItem(nextItem);
 	},
 
 	prevItem: function() {
-		clearTimeout(this.timer);
+		clearTimeout(timerImage);
 		var prevItem = '';
 
-		if(this.currentItem) {
-			prevItem = this.currentItem.prev('.item');
+		if(currentItem) {
+			prevItem = currentItem.prev('.item');
 			if(!prevItem.length && this.options.loop){
 				prevItem = this.container.children('.item').last();
 			}
 		}
 
-		this.goNextItem(nextItem);
+		if(prevItem.length) {
+			if(currentItem) {
+				currentItem.fadeOut(this.options.effectDuration);
+			}
+
+			prevItem.fadeIn(this.options.effectDuration);
+			currentItem = prevItem;
+
+			var _this = this;
+			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+		}
 	},
 
-	showItem: function(item,timer) {
-		clearTimeout(timer);
+	showItem: function(item) {
+		clearTimeout(timerImage);
 		var nbrMiniPic = item.attr('class');
 		nbrMiniPic = nbrMiniPic.replace('itemMiniPic_','');
-		var nextItem = jQuery('.itemPic_'+nbrMiniPic).parent('.item');
-		this.goNextItem(nextItem);
+		nextItem = jQuery('.itemPic_'+nbrMiniPic).parent('.item');
+		this.goNextItem();
 	},
 
-	goNextItem: function (nextItem) {
+	goNextItem: function () {
 		if(nextItem.length) {
-			if(this.currentItem) {
-				this.currentItem.fadeOut(this.options.effectDuration);
+			if(currentItem) {
+				currentItem.fadeOut(this.options.effectDuration);
 			}
-		
+			currentItem = nextItem;
 			nextItem.fadeIn(this.options.effectDuration);
-			this.currentItem = nextItem;
 			
 			var _this = this;
-			this.timer = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
 		}		
 	},
 });
