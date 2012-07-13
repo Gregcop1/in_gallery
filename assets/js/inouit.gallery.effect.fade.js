@@ -23,6 +23,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 	nextItem: function() {
 
 		clearTimeout(timerImage);
+		console.log(inouit);
 		if(!this.container){
 			this.container = this.getContainer();
 		}
