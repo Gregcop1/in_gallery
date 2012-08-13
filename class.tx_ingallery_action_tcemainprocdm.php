@@ -80,18 +80,24 @@ class tx_ingallery_action_tcemainprocdm
     }
 
     function createAndInsertNewPicture($id,$fieldArray){
-        $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$fieldArray['path_folder'];
-        $fullePefPathFolder = opendir($fullePathFolder);
-        $uid = intval($id);
-        if (!$uid){
-            $uid = ($this->getAlbumUid()+1);
-        }
-        $sorting = ($this->getImageSorting($uid,$fieldArray['tx_ingallery_album_uid'])+1);
-        while (false !== ($file = readdir($fullePefPathFolder))) {
-            if ($this->checkNewPicture($id,$fieldArray,$fieldArray['path_folder'],$fullePathFolder,$file,$sorting,$uid,true)){
-                $sorting++;
+        $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].'/'.$fieldArray['path_folder'];
+
+        //test if dir exist and is not empty
+        if($fullePefPathFolder = opendir($fullePathFolder) ) {
+            $files = scandir($fullePathFolder);
+            if(count($files) > 2) {
+                $uid = intval($id);
+                if (!$uid){
+                    $uid = ($this->getAlbumUid()+1);
+                }
+                $sorting = ($this->getImageSorting($uid,$fieldArray['tx_ingallery_album_uid'])+1);
+                while (false !== ($file = readdir($fullePefPathFolder))) {
+                    if ($this->checkNewPicture($id,$fieldArray,$fieldArray['path_folder'],$fullePathFolder,$file,$sorting,$uid,true)){
+                        $sorting++;
+                    }
+                }
             }
-        }        
+        }
     }
     
     function checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,$file,$sorting,$uid=0,$insert=true){
