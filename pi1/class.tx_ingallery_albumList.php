@@ -31,25 +31,25 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @package	TYPO3
  * @subpackage tx_gclib
  */
-class tx_ingallery_albumList extends tx_gclib_list { 
+class tx_ingallery_albumList extends tx_gclib_list {
 	var $conf;
 	var $tableName;
 	var $subPart;
 	var $query;
 	var $results;
-	
-	
+
+
 	/**
 	 * The main method of the PlugIn
 	 *
-	 * @param	array	$conf: The PlugIn configuration
+	 * @param	array	$configuration: The PlugIn configuration
 	 * @param	string	$tableName: Name of the table in database
 	 *
 	 * @return	The content that is displayed on the website
 	 */
-	function main($conf, $tableName = '') {
-	 	parent::main($conf, 'tx_ingallery_album');
-	 	
+	function main($configuration, $tableName = '') {
+	 	parent::main($configuration, 'tx_ingallery_album');
+
 	 	//insertion de JS à la demande
 	 	if ($this->config['includeCSS']){
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
@@ -67,13 +67,13 @@ class tx_ingallery_albumList extends tx_gclib_list {
 					jQuery(document).ready(function() {
 								jQuery('.openAlbumOnFancyBox').fancybox();
 					});
-			</script>";	 	
+			</script>";
 		}
-	 	
+
 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
-	 	 
+
 	 	return $this->render($this->config['templateFile'], 'TEMPLATE_ALBUM',  $this->conf['displayAlbum.'], $this->results);
-	}	
+	}
  }
 
 

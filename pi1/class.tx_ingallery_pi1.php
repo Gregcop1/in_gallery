@@ -41,16 +41,16 @@ class tx_ingallery_pi1 extends tx_gclib {
 	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
 	var $scriptRelPath = 'pi1/class.tx_ingallery_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'in_gallery';	// The extension key.
-	
+
 	/**
 	 * The main method of the PlugIn
 	 *
 	 * @param	string		$content: The PlugIn content
-	 * @param	array		$conf: The PlugIn configuration
+	 * @param	array		$configuration: The PlugIn configuration
 	 * @return	The content that is displayed on the website
 	 */
-	function main($content,$conf) {
-		parent::main($conf);
+	function main($content,$configuration) {
+		parent::main($configuration);
 
 		$content = '';
 		switch($this->config['CODE']) {

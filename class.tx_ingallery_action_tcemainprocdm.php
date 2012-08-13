@@ -25,7 +25,7 @@ class tx_ingallery_action_tcemainprocdm
 {
     var $extConf;
     var $hashFile       = 1;
-    
+
     function processDatamap_postProcessFieldArray ($status, $table, $id, &$fieldArray, &$reference){
         global $FILEMOUNTS, $BE_USER, $TYPO3_CONF_VARS;
 
@@ -39,17 +39,17 @@ class tx_ingallery_action_tcemainprocdm
                 }
             }
             if($status == 'update'){
-                $path_folder = $this->getAlbumFolder($id);
+                $albumFolderPath = $this->getAlbumFolderPath($id);
                 if (isset($fieldArray['path_folder']) && !empty($fieldArray['path_folder'])){
-                    if ($fieldArray['path_folder'] == $path_folder){
+                    if ($fieldArray['path_folder'] == $albumFolderPath){
                         $this->createAndInsertNewPicture($id,$fieldArray);
                     }else{
-                        $this->deleteAllPictures($id);  
-                        $this->createAndInsertNewPicture($id,$fieldArray);  
+                        $this->deleteAllPictures($id);
+                        $this->createAndInsertNewPicture($id,$fieldArray);
                         $fieldArray['tx_ingallery_image_uid'] = '0';
                     }
                 }else{
-                    $fieldArray['path_folder'] = $path_folder;
+                    $fieldArray['path_folder'] = $albumFolderPath;
                     $this->createAndInsertNewPicture($id,$fieldArray);
                 }
             }
@@ -60,20 +60,20 @@ class tx_ingallery_action_tcemainprocdm
 
             if($status == 'new'){
                 $fieldArray['sorting'] = ($this->getImageSorting($fieldArray['pid'],$fieldArray['tx_ingallery_album_uid'])+1);
-                $path_folder = $this->getAlbumFolder($fieldArray['tx_ingallery_album_uid']);
-                $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
-                $this->checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
+                $albumFolderPath = $this->getAlbumFolderPath($fieldArray['tx_ingallery_album_uid']);
+                $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$albumFolderPath;
+                $this->checkNewPicture($id,$fieldArray,$albumFolderPath,$fullePathFolder,str_replace($albumFolderPath,'',$fieldArray['image']),$sorting,$uid,false);
             }
             if($status == 'update'){
                 if (isset($fieldArray['image']) && !empty($fieldArray['image'])){
                     $album_uid = $this->getImageAlbumUid($id);
-                    $path_folder = $this->getAlbumFolder($album_uid);
-                    $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$path_folder;
-                    //t3lib_div::debug(array($path_folder,$fullePathFolder));die();
-                    
+                    $albumFolderPath = $this->getAlbumFolderPath($album_uid);
+                    $fullePathFolder    = $_SERVER['DOCUMENT_ROOT'].$albumFolderPath;
+                    //t3lib_div::debug(array($albumFolderPath,$fullePathFolder));die();
+
                     $this->cleanSysRefIndex($id,$fieldArray['image']);
 
-                    $this->checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,str_replace($path_folder,'',$fieldArray['image']),$sorting,$uid,false);
+                    $this->checkNewPicture($id,$fieldArray,$albumFolderPath,$fullePathFolder,str_replace($albumFolderPath,'',$fieldArray['image']),$sorting,$uid,false);
                 }
             }
         }
@@ -99,7 +99,7 @@ class tx_ingallery_action_tcemainprocdm
             }
         }
     }
-    
+
     function checkNewPicture($id,$fieldArray,$path_folder,$fullePathFolder,$file,$sorting,$uid=0,$insert=true){
         if(filetype($fullePathFolder . $file) == 'file'){
             $infosPicture = getimagesize($fullePathFolder . $file);
@@ -122,11 +122,11 @@ class tx_ingallery_action_tcemainprocdm
                 }
             }
         }
-        return false;        
+        return false;
     }
 
     function createResizePicture($fullePathFolderSrc,$file,$infosPicture,$ext){
-        
+
         $width  = $infosPicture[0];
         $height = $infosPicture[1];
 
@@ -162,7 +162,7 @@ class tx_ingallery_action_tcemainprocdm
             $srcImg = imagecreatefromgif($fullePathFolderSrc.$file);
 
         imagecopyresized($newImg, $srcImg, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-        
+
         if ($ext == 'image/jpeg')
             imagejpeg($newImg,$fullePathFolderDst.$file,100);
         if ($ext == 'image/png')
@@ -171,7 +171,7 @@ class tx_ingallery_action_tcemainprocdm
             imagegif($newImg,$fullePathFolderDst.$file,100);
 
         imagedestroy($newImg);
-        imagedestroy($srcImg);    
+        imagedestroy($srcImg);
     }
 
     function deleteAllPictures($tx_ingallery_album_uid){
@@ -181,41 +181,41 @@ class tx_ingallery_action_tcemainprocdm
                 $this->cleanSysRefIndex($pic['uid'],$pic['image']);
             }
         }
-        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid); 
+        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid);
     }
 
     function getAlbumUid () {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('count(*) as total', 'tx_ingallery_album', '', $groupBy='', $orderBy='', $limit='');
-        return $rec[0]['total']; 
+        return $rec[0]['total'];
     }
 
     function getAlbumPid ($uid) {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('pid', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
-        return $rec[0]['pid']; 
+        return $rec[0]['pid'];
     }
 
-    function getAlbumFolder ($uid) {
+    function getAlbumFolderPath ($uid) {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('path_folder', 'tx_ingallery_album', 'tx_ingallery_album.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
-        return $rec[0]['path_folder']; 
+        return $rec[0]['path_folder'];
     }
 
     function getImageSorting ($pid,$tx_ingallery_album_uid) {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('sorting', 'tx_ingallery_image', ' tx_ingallery_image.pid = \''.intval($pid).'\' AND tx_ingallery_album_uid = \''.$tx_ingallery_album_uid.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
-        return $rec[0]['sorting']; 
+        return $rec[0]['sorting'];
     }
 
     function getImageByImage ($tx_ingallery_album_uid = '',$file) {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('image', 'tx_ingallery_image', ' tx_ingallery_image.tx_ingallery_album_uid = \''.intval($tx_ingallery_album_uid).'\' AND tx_ingallery_image.image = \''.$file.'\'', $groupBy='', $orderBy=' sorting DESC', $limit='1');
-        return $rec[0]['image']; 
+        return $rec[0]['image'];
     }
 
     function getImageAlbumUid ($uid) {
         $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('tx_ingallery_album_uid', 'tx_ingallery_image', 'tx_ingallery_image.uid = '.$uid, $groupBy='', $orderBy='', $limit='');
-        return $rec[0]['tx_ingallery_album_uid']; 
+        return $rec[0]['tx_ingallery_album_uid'];
     }
 
     function insertNewPicture($path_folder,$fullePathFolder,$file,$pid,$sorting,$tx_ingallery_album_uid){
-        
+
         $insertFields = array(
             'title'                             => $file,
             'pid'                               => $pid,
@@ -240,8 +240,8 @@ class tx_ingallery_action_tcemainprocdm
             'tablename'     =>  'tx_ingallery_image',
             'recuid'        =>  $rec[0]['uid'],
             'field'         =>  'image',
-            'flexpointer'   =>  '',   
-            'softref_key'   =>  '',   
+            'flexpointer'   =>  '',
+            'softref_key'   =>  '',
             'softref_id'    =>  '',
             'sorting'       =>  '0',
             'deleted'       =>  '0',
@@ -263,7 +263,7 @@ class tx_ingallery_action_tcemainprocdm
             'ref_table'     =>  '\'_FILE\'',
             'ref_string'    =>  '\''.$ref_string.'\''
         );
-        
+
         $GLOBALS['TYPO3_DB']->exec_DELETEquery('sys_refindex',implode(' AND ',$deleteFields));
     }
 }

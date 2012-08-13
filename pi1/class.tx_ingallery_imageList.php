@@ -31,26 +31,26 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @package	TYPO3
  * @subpackage tx_gclib
  */
-class tx_ingallery_imageList extends tx_gclib_list { 
+class tx_ingallery_imageList extends tx_gclib_list {
 	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
 	var $conf;
 	var $tableName;
 	var $subPart;
 	var $query;
 	var $results;
-	
-	
+
+
 	/**
 	 * The main method of the PlugIn
 	 *
-	 * @param	array	$conf: The PlugIn configuration
+	 * @param	array	$configuration: The PlugIn configuration
 	 * @param	string	$tableName: Name of the table in database
 	 *
 	 * @return	The content that is displayed on the website
 	 */
-	function main($conf, $tableName = '') {
-	 	parent::main($conf, 'tx_ingallery_image');
-	 	
+	function main($configuration, $tableName = '') {
+	 	parent::main($configuration, 'tx_ingallery_image');
+
 	 	//insertion de JS à la demande
 	 	if ($this->config['includeCSS']){
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
@@ -64,7 +64,7 @@ class tx_ingallery_imageList extends tx_gclib_list {
 		}
 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.imageNavigation.js"></script>';
-	 	 
+
 	 	if($this->config['effect'] && file_exists(t3lib_extMgm::extPath('in_gallery').'assets/js/'.$this->config['effect'].'.js')){
 	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['effect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['effect'].'.js"></script>';
 	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['navEffect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['navEffect'].'.js"></script>';
@@ -78,7 +78,7 @@ class tx_ingallery_imageList extends tx_gclib_list {
 		}
 
 		return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
-	}	
+	}
 
 
 	 /**
@@ -86,7 +86,7 @@ class tx_ingallery_imageList extends tx_gclib_list {
 	  */
 	function initFilterQueryParts(){
 	 	$this->query['FROM'] .= ' LEFT JOIN tx_ingallery_album on ( tx_ingallery_album.uid = '.$this->tableName.'.tx_ingallery_album_uid )';
-		
+
 		//if an album is selected, take this one, else, take the last enabled album (order by sorting)
 		if($this->piVars['album']){
 			$this->query['WHERE'] .= (	$this->config['pidList'] ? ' AND tx_ingallery_album.pid in ('.implode(',', $this->getRecursivePid( $this->config['pidList'], $this->config['recursive'] )).')' : '')
