@@ -31,7 +31,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @package	TYPO3
  * @subpackage tx_gclib
  */
- class tx_ingallery_imageList extends tx_gclib_list { 
+class tx_ingallery_imageList extends tx_gclib_list { 
 	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
 	var $conf;
 	var $tableName;
@@ -48,33 +48,44 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 	 *
 	 * @return	The content that is displayed on the website
 	 */
-	 function main($conf, $tableName = '') {
-	 	 parent::main($conf, 'tx_ingallery_image');
-	 	 
-	 	 //insertion de JS à la demande
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
-	 	 $GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
+	function main($conf, $tableName = '') {
+	 	parent::main($conf, 'tx_ingallery_image');
+	 	$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['in_gallery']);
+	 	
+	 	//insertion de JS à la demande
+	 	if ($this->extConf['includeCSS']){
+			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
+	 	}
+	 	if ($this->extConf['includeJquery']){
+		 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/jquery-1.7.2.min.js"></script>';
+		}
+	 	if ($this->extConf['includeFancyBox']){
+		 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery_fancybox_js'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/jquery.fancybox/fancybox/jquery.fancybox-1.3.4.js"></script>';
+			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery_fancybox_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/jquery.fancybox/fancybox/jquery.fancybox-1.3.4.css" media="all">';
+		}
+	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
+	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.imageNavigation.js"></script>';
 	 	 
 	 	if($this->config['effect'] && file_exists(t3lib_extMgm::extPath('in_gallery').'assets/js/'.$this->config['effect'].'.js')){
 	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['effect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['effect'].'.js"></script>';
+	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['navEffect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['navEffect'].'.js"></script>';
 
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_launcher'] .= "<script type=\"text/javascript\">
 				jQuery(document).ready(function() {
-				jQuery('#c".$this->cObj->data['uid']." .imageList').inGallery(".$this->config['effect'].",{".$this->config['options']."});
+				jQuery('#c".$this->cObj->data['uid']." .imageList').inGallery(".$this->config['effect'].",{".$this->config['effectOptions']."});
+				jQuery('#c".$this->cObj->data['uid']." .galleryContenerMiniList').inGalleryNavigation(".$this->config['effect'].",".$this->config['navEffect'].",{".$this->config['navEffectOptions']."});
 				});
 			</script>";
 		}
 
-		$this->results = $this->execQuery( $this->query );
 		return $this->render($this->config['templateFile'], 'TEMPLATE_IMAGE',  $this->conf['displayImage.'], $this->results);
-	 }	
+	}	
 
 
 	 /**
 	  * Include query part to link album and find the selected or last album if necessary
 	  */
-	 function initFilterQueryParts(){
+	function initFilterQueryParts(){
 	 	$this->query['FROM'] .= ' LEFT JOIN tx_ingallery_album on ( tx_ingallery_album.uid = '.$this->tableName.'.tx_ingallery_album_uid )';
 		
 		//if an album is selected, take this one, else, take the last enabled album (order by sorting)
@@ -92,7 +103,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
 										. ' LIMIT 1'
 									.')';
 		}
-	 }
+	}
 
  }
 

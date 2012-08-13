@@ -14,7 +14,10 @@
 	<ul id="albumList">
 		<!-- ###CONTENT### begin-->
 			<!-- ###ITEM### begin Template for an unique item-->
-				<li ###PARAMS###>###TITLE###</li>
+				<li ###PARAMS###>
+					<span class="title">###TITLE###</span><br />
+					<span class="img">###IMG###</span>
+				</li>
 			<!-- ###ITEM### end -->
 		<!-- ###CONTENT### end-->
 	</ul>
@@ -23,6 +26,7 @@
 
     <h2>DISPLAY_IMAGE</h2>    
 	<!-- ###TEMPLATE_IMAGE### begin Template for image listing -->
+	###ALBUM_TITLE###
 	<div class="imageList">
 		<!-- ###CONTENT### begin-->
 			<!-- ###ITEM### begin Template for an unique item-->
@@ -36,6 +40,7 @@
 			<!-- ###ITEM### end -->
 		<!-- ###CONTENT### end-->
 	</div>
+	###ALBUM_MINI_LIST###
 	<!-- ###TEMPLATE_IMAGE### end-->
     
 <html>

@@ -7,11 +7,21 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="pi1_title">Gallery</label>
-			<label index="pi1_plus_wiz_description">Gallery</label>
+			<label index="extmng.maxWidth">Gallery</label>
+			<label index="extmng.maxHeight">Max Height</label>
+			<label index="extmng.maxWidth">Max Weight</label>
+			<label index="extmng.includeJquery">Include Jquery</label>
+			<label index="extmng.includeCSS">Include CSS</label>
+			<label index="extmng.includeFancyBox">includeFancyBox FancyBox</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="pi1_title">Galerie</label>
-			<label index="pi1_plus_wiz_description">Galerie</label>
+			<label index="extmng.maxWidth">Galerie</label>
+			<label index="extmng.maxHeight">Max Height</label>
+			<label index="extmng.maxWidth">Max Weight</label>
+			<label index="extmng.includeJquery">Include Jquery</label>
+			<label index="extmng.includeCSS">Include CSS</label>
+			<label index="extmng.includeFancyBox">includeFancyBox FancyBox</label>
 		</languageKey>
 	</data>
 </T3locallang>

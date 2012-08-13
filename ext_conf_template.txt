@@ -1,0 +1,10 @@
+  # cat=basic/11; type=int; label=LLL:EXT:in_gallery/locallang.xml:extmng.maxWidth
+maxWidth=1024
+  # cat=basic/11; type=int; label=LLL:EXT:in_gallery/locallang.xml:extmng.maxHeight
+maxHeight=1024
+  # cat=basic/enable/100; type=boolean; label=LLL:EXT:in_gallery/locallang.xml:extmng.includeJquery
+includeJquery=1
+  # cat=basic/enable/100; type=boolean; label=LLL:EXT:in_gallery/locallang.xml:extmng.includeCSS
+includeCSS=1
+  # cat=basic/enable/100; type=boolean; label=LLL:EXT:in_gallery/locallang.xml:extmng.includeFancyBox
+includeFancyBox=1
