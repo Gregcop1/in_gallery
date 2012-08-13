@@ -3,6 +3,9 @@ if (!defined('TYPO3_MODE')) {
 	die ('Access denied.');
 }
 
+
+t3lib_extMgm::allowTableOnStandardPages('tx_ingallery_album');
+
 $TCA['tx_ingallery_album'] = array (
         'ctrl' => array (
                 'title'                                 => 'LLL:EXT:in_gallery/locallang_db.xml:tx_ingallery_album',            
@@ -24,6 +27,9 @@ $TCA['tx_ingallery_album'] = array (
                 'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_ingallery_album.gif',
         ),
 );
+
+
+t3lib_extMgm::allowTableOnStandardPages('tx_ingallery_image');
 
 $TCA['tx_ingallery_image'] = array (
         'ctrl' => array (
