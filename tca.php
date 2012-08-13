@@ -152,7 +152,7 @@ $TCA['tx_ingallery_album'] = array (
 					array('',0),
 				),
 				'foreign_table' => 'tx_ingallery_image',	
-				'foreign_table_where' => ' AND tx_ingallery_image.pid=###CURRENT_PID### AND tx_ingallery_image.sys_language_uid IN (-1,0) ORDER BY tx_ingallery_image.title',	
+				'foreign_table_where' => ' AND tx_ingallery_image.pid=###CURRENT_PID### AND tx_ingallery_image.tx_ingallery_album_uid ="###THIS_UID###" AND tx_ingallery_image.sys_language_uid IN (-1,0) ORDER BY tx_ingallery_image.title',	
 				'size' => 1,	
 				'minitems' => 0,
 				'maxitems' => 1,
