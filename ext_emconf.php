@@ -13,7 +13,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Gallery',
 	'description' => '',
-	'category' => '',
+	'category' => 'Frontend',
 	'author' => 'Grégory Copin, Jérémy Viste',
 	'author_email' => 'gcopin@inouit.com, jviste@inouit.com',
 	'shy' => '',

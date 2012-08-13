@@ -1,5 +1,18 @@
 plugin.tx_ingallery_pi1 {
-	singlePid = 1
+
+	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.includeJquery
+	includeJquery = 1
+	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.includeCSS
+	includeCSS = 1
+	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.includeFancyBox
+	includeFancyBox = 1
+	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.openAlbumWithFancyBox
+	openAlbumWithFancyBox = 0
+	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.openPictureWithFancyBox
+	openPictureWithFancyBox = 1
+
+
+	singlePid = 7
 
 	gallery.width = 990m
 	gallery.height = 600c

@@ -1,5 +1,12 @@
 plugin.tx_ingallery_pi1 {
 	config {
+		#Include external library
+		includeJquery = {$plugin.tx_ingallery_pi1.includeJquery}
+		includeCSS = {$plugin.tx_ingallery_pi1.includeCSS}
+		includeFancyBox = {$plugin.tx_ingallery_pi1.includeFancyBox}
+
+		openAlbumWithFancyBox = {$plugin.tx_ingallery_pi1.openAlbumWithFancyBox}
+
 		#CODE dertermine what to display, possible values : albumList, imageList
 		CODE = sDEF|lDEF|CODE|vDEF
 		CODE.ifEmpty = imageList
@@ -14,7 +21,7 @@ plugin.tx_ingallery_pi1 {
 		limit = 
 
 		effect = inouit.gallery.effect.fade
-		effectOptions =  fancyBoxImage: true,
+		effectOptions =  fancyBoxImage: {$plugin.tx_ingallery_pi1.openPictureWithFancyBox}
 		
 		navEffect = inouit.gallery.navEffect.slide
 		navEffectOptions =  
