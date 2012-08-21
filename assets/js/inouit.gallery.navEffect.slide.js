@@ -74,13 +74,13 @@ jQuery.extend(true,inouit.gallery.navEffect.slide, {
 
 	slideLeft: function (){
 		if ( parseInt( String(this.container.find('.albumMiniList').css('marginLeft')).replace('px','') ) < 0){
-			this.container.find('.albumMiniList').animate({'marginLeft' : '+='+this.container.width()});
+			this.container.find('.albumMiniList').animate({'marginLeft' : '+='+this.container.width()}, 'fast');
 		}
 	},
 
 	slideRight: function (){
-		if ( parseInt( String(this.container.find('.albumMiniList').css('marginLeft')).replace('px','') ) >= '-'+this.container.width()){
-			this.container.find('.albumMiniList').animate({'marginLeft' : '-='+this.container.width()});
+		if ( parseInt( String(this.container.find('.albumMiniList').css('marginLeft')).replace('px','') ) > '-'+this.container.width()){
+			this.container.find('.albumMiniList').animate({'marginLeft' : '-='+this.container.width()}, 'fast');
 		}
 	},
 

@@ -24,7 +24,7 @@ inouit.gallery.image = {
 			
 			effect.initialize();
 		}else {
-			console.log('You must choose an existing effect')
+			alert('You must choose an existing effect')
 		}
 	},
 };
@@ -110,7 +110,7 @@ inouit.gallery.effect.default = {
 				});
 			}
 			else{
-				console.log("Fancybox don't load");
+				alert("Fancybox don't load");
 			}
 		}
 	},

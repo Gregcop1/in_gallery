@@ -22,7 +22,7 @@ inouit.gallery.imageNavigation = {
 
 			navEffect.initialize();
 		}else {
-			console.log('You must choose an existing navEffect')
+			alert('You must choose an existing navEffect')
 		}
 	},
 };
