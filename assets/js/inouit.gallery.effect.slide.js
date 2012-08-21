@@ -1,4 +1,4 @@
-inouit.gallery.effect.slide = jQuery.extend(true,{},inouit.gallery.effect.default);
+inouit.gallery.effect.slide = jQuery.extend(true,{},inouit.gallery.effect.defaults);
 jQuery.extend(true,inouit.gallery.effect.slide, {
 	name: 'slide',
 	itemW: 0,

@@ -1,4 +1,4 @@
-inouit.gallery.navEffect.slide = jQuery.extend(true,{},inouit.gallery.navEffect.default);
+inouit.gallery.navEffect.slide = jQuery.extend(true,{},inouit.gallery.navEffect.defaults);
 jQuery.extend(true,inouit.gallery.navEffect.slide, {
 	name: 'slide',
 	itemW: 0,

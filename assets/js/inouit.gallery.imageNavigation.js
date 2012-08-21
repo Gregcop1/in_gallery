@@ -24,14 +24,15 @@ inouit.gallery.imageNavigation = {
 		}else {
 			alert('You must choose an existing navEffect')
 		}
-	},
+	}
 };
 
 if(!inouit.gallery.navEffect){
-	inouit.gallery.navEffect = {}
+	inouit.gallery.navEffect = {};
 }
-inouit.gallery.navEffect.default = {
-	name: 'default',
+
+inouit.gallery.navEffect.defaults = {
+	name: 'defaults',
 	api: '',
 	container: '',
 	options: {
