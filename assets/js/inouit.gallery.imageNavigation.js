@@ -7,31 +7,33 @@ if(!inouit.gallery) {
 }
 
 inouit.gallery.imageNavigation = {
+	navigationEffect: '',
 
 	initialize: function(container, imageEffect, navEffect, options){
 		if(navEffect) {
-			var navEffect = jQuery.extend(true,{},navEffect);
+			navigationEffect = jQuery.extend(true,{},navEffect);
 		
-			navEffect.options = jQuery.extend(true,navEffect.options, options);
-			navEffect.container = container;
-			navEffect.api = this;
+			navigationEffect.options = jQuery.extend(true,navigationEffect.options, options);
+			navigationEffect.container = container;
+			navigationEffect.api = this;
 			
 			if (imageEffect) {
 				navEffect.imageEffect = imageEffect;
 			}
 
-			navEffect.initialize();
+			navigationEffect.initialize();
 		}else {
 			alert('You must choose an existing navEffect')
 		}
-	},
+	}
 };
 
 if(!inouit.gallery.navEffect){
-	inouit.gallery.navEffect = {}
+	inouit.gallery.navEffect = {};
 }
-inouit.gallery.navEffect.default = {
-	name: 'default',
+
+inouit.gallery.navEffect.defaults = {
+	name: 'defaults',
 	api: '',
 	container: '',
 	options: {
@@ -49,6 +51,8 @@ inouit.gallery.navEffect.default = {
 	bindMiniPicture: function (){},
 
 	unBindMiniPicture: function (){},
+
+	refreshMaxWidth: function(){},
 }
 
 jQuery.fn.inGalleryNavigation = function(imageEffect, navEffect, options) {

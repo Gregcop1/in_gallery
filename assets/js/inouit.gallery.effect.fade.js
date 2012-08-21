@@ -1,4 +1,4 @@
-inouit.gallery.effect.fade = jQuery.extend(true,{},inouit.gallery.effect.default);
+inouit.gallery.effect.fade = jQuery.extend(true,{},inouit.gallery.effect.defaults);
 jQuery.extend(true,inouit.gallery.effect.fade, {
 	name: 'fade',
 	timer: '',

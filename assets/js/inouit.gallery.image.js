@@ -24,17 +24,18 @@ inouit.gallery.image = {
 			
 			effect.initialize();
 		}else {
-			alert('You must choose an existing effect')
+			alert('You must choose an existing effect');
 		}
-	},
+	}
 };
 
 
 if(!inouit.gallery.effect){
-	inouit.gallery.effect = {}
+	inouit.gallery.effect = {};
 }
-inouit.gallery.effect.default = {
-	name: 'default',
+
+inouit.gallery.effect.defaults = {
+	name: 'defaults',
 	api: '',
 	container: '',
 	options: {

@@ -65,7 +65,7 @@ class tx_ingallery_albumList extends tx_gclib_list {
 		if ($this->config['openAlbumWithFancyBox']){
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_launcher'] .= "<script type=\"text/javascript\">
 					jQuery(document).ready(function() {
-								jQuery('.openAlbumOnFancyBox').fancybox();
+						jQuery('.openAlbumOnFancyBox').fancybox();
 					});
 			</script>";
 		}

@@ -1,4 +1,4 @@
-inouit.gallery.navEffect.slide = jQuery.extend(true,{},inouit.gallery.navEffect.default);
+inouit.gallery.navEffect.slide = jQuery.extend(true,{},inouit.gallery.navEffect.defaults);
 jQuery.extend(true,inouit.gallery.navEffect.slide, {
 	name: 'slide',
 	itemW: 0,
@@ -13,14 +13,23 @@ jQuery.extend(true,inouit.gallery.navEffect.slide, {
 
 	buildMiniList: function(){
 		this.container.addClass('hoverFlowHidden');
+		var objMiniPicture = jQuery('.albumMiniList > li');
+		var _this = this;
+		objMiniPicture.each(function(){
+			jQuery(this).children('img').load(_this.refreshMaxWidth);
+		});
+
+		this.bindMiniPicture();
+	},
+
+	refreshMaxWidth: function(){
 		var widthTotal = 0;
 		var objMiniPicture = jQuery('.albumMiniList > li');
 		objMiniPicture.each(function(){
-			widthTotal = widthTotal + jQuery(this).width()+parseInt( (jQuery(this).css('marginLeft')).replace('px','') )+parseInt( (jQuery(this).css('marginRight')).replace('px','') );
+			widthTotal = widthTotal + jQuery(this).children('img').width()+parseInt( (jQuery(this).css('marginLeft')).replace('px','') )+parseInt( (jQuery(this).css('marginRight')).replace('px','') );
 		});
+		
 		jQuery('.albumMiniList').width(widthTotal+'px');
-
-		this.bindMiniPicture();
 	},
 
 	bindMiniPicture: function () {

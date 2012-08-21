@@ -22,7 +22,7 @@
 
 .tx-ingallery-pi1 .galleryContenerMiniList { position: relative; padding: 0 30px; width: 890px; }
 .tx-ingallery-pi1 .albumMiniList { display: inline-block; margin:0; padding:0; width:100%; text-align:center;}
-.tx-ingallery-pi1 .albumMiniList  li { display: inline-block; /*width:125px; */margin:0 10px 0 0; padding:0 0 0 0; cursor: pointer;}
+.tx-ingallery-pi1 .albumMiniList  li { display: inline; /*width:125px; */margin:0 10px 0 0; padding:0 0 0 0; cursor: pointer;}
 .tx-ingallery-pi1 .albumMiniList  li img { /*width: 125px;*/ z-index:1; }
 
 .tx-ingallery-pi1 .arrowsMiniContainer .arrow { position: absolute; top:0; bottom: 0; width: 35px; z-index: 20; height: 80px;}
