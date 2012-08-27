@@ -57,7 +57,7 @@ jQuery.extend(true,inouit.gallery.navEffect.slide, {
 									.addClass('arrowRight')
 									.click( function() {_this.slideRight(); })
 									.appendTo(arrows);
-
+/*
 			miniList.hover(function(){
 				_this.miniArrowsAddShow(left,right);
 			},function(){
@@ -67,7 +67,7 @@ jQuery.extend(true,inouit.gallery.navEffect.slide, {
 				_this.miniArrowsAddShow(left,right);
 			},function(){
 				_this.miniArrowsRemoveShow(left,right);
-			});
+			});*/
 		}
 	},
 

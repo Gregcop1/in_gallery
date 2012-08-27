@@ -26,10 +26,18 @@
 .tx-ingallery-pi1 .albumMiniList  li img { /*width: 125px;*/ z-index:1; }
 
 .tx-ingallery-pi1 .arrowsMiniContainer .arrow { position: absolute; top:0; bottom: 0; width: 35px; z-index: 20; height: 80px;}
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowLeft { left: 0px; background: #FFF; }
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowRight { right: 0px; background: #FFF; }
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowLeftShow { background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowRightShow { background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
+.tx-ingallery-pi1 .arrowsMiniContainer .arrowLeft { left: 0px; background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
+.tx-ingallery-pi1 .arrowsMiniContainer .arrowRight { right: 0px; background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
 
-#albumList { wdith: 100%; margin:0; padding:0; }
+#albumList { width: 100%; margin:0; padding:0; }
 #albumList li { display: inline-block; vertical-align: top; }
+
+
+
+
+.tx-ingallery-pi1 .containerGalleryForMobile { position: static; height: auto; overflow: auto; }
+.tx-ingallery-pi1 .containerGalleryForMobile .mobileFlexibleContainer {  }
+.tx-ingallery-pi1 .containerGalleryForMobile .item { position: static; display: inline; }
+.tx-ingallery-pi1 .containerGalleryForMobile .label,
+.tx-ingallery-pi1 .containerGalleryForMobile+.galleryContenerMiniList { display: none; }
+

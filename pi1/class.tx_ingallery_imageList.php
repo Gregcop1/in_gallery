@@ -75,7 +75,6 @@ class tx_ingallery_imageList extends tx_gclib_list {
 					jQuery('#c".$this->cObj->data['uid']." .galleryContenerMiniList').inGalleryNavigation(".$this->config['effect'].",".$this->config['navEffect'].",{".$this->config['navEffectOptions']."});
 				});
 				jQuery(document).load(function() {
-					console.log('test2')
 					inouit.gallery.imageNavigation.navigationEffect.refreshMaxWidth();
 				});
 			</script>";
