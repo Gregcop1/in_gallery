@@ -18,7 +18,7 @@ inouit.gallery.imageNavigation = {
 			navigationEffect.api = this;
 			
 			if (imageEffect) {
-				navEffect.imageEffect = imageEffect;
+				navigationEffect.imageEffect = imageEffect;
 			}
 
 			navigationEffect.initialize();

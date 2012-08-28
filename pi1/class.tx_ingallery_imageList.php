@@ -91,10 +91,10 @@ class tx_ingallery_imageList extends tx_gclib_list {
 	 	$this->query['FROM'] .= ' LEFT JOIN tx_ingallery_album on ( tx_ingallery_album.uid = '.$this->tableName.'.tx_ingallery_album_uid )';
 
 		//if an album is selected, take this one, else, take the last enabled album (order by sorting)
-		if($this->piVars['album']){
+		if($this->config['requestedAlbum'] || $this->piVars['album']){
 			$this->query['WHERE'] .= (	$this->config['pidList'] ? ' AND tx_ingallery_album.pid in ('.implode(',', $this->getRecursivePid( $this->config['pidList'], $this->config['recursive'] )).')' : '')
 									. $this->cObj->enableFields('tx_ingallery_album')
-									. ' AND tx_ingallery_image.tx_ingallery_album_uid="'.$this->piVars['album'].'"';
+									. ' AND tx_ingallery_image.tx_ingallery_album_uid="'.($this->piVars['album'] ? $this->piVars['album'] : $this->config['requestedAlbum']).'"';
 		}else {
 			$this->query['WHERE'] .= ' AND tx_ingallery_album_uid = ('
 										. 'SELECT tx_ingallery_album.uid'

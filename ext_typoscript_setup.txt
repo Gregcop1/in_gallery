@@ -25,6 +25,8 @@ plugin.tx_ingallery_pi1 {
 		
 		navEffect = inouit.gallery.navEffect.slide
 		navEffectOptions =  
+
+		requestedAlbum = sDEF|lDEF|requestedAlbum|vDEF
 	}
 	
 	displayAlbum {

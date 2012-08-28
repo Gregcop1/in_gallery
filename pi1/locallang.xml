@@ -11,6 +11,7 @@
 			<label index="flexform.code.categoryList">List of categories</label>
 			<label index="flexform.code.albumList">List of albums</label>
 			<label index="flexform.code.imageList">Gallery</label>
+			<label index="flexform.code.requestedAlbum">Album to show</label>
 			
 			<label index="error.noResult">No result</label>
 		</languageKey>
@@ -20,6 +21,7 @@
 			<label index="flexform.code.categoryList">Liste de catégorie</label>
 			<label index="flexform.code.albumList">Liste des albums</label>
 			<label index="flexform.code.imageList">Galerie</label>
+			<label index="flexform.code.requestedAlbum">Album à afficher</label>
 			
 			<label index="error.noResult">Aucun résultat</label>
 		</languageKey>
