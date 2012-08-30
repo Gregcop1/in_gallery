@@ -12,6 +12,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			this.placeImage();
 			this.buildArrows();
 			this.loadFancyBox();
+			this.buildThumbnailList();
 			this.launch();
 		}
 	},
@@ -37,9 +38,9 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			var widthTotal = 0;
 			var mobileFlexibleContainer = _this.container.children('.mobileFlexibleContainer');
 			var objMiniPicture = mobileFlexibleContainer.children('.item');
-			objMiniPicture.find('img').css('maxWidth',_this.container.width()+'px')
+			objMiniPicture.find('img').not('.thumbnail').css('maxWidth',_this.container.width()+'px')
 			objMiniPicture.each(function(){
-				widthTotal = widthTotal + jQuery(this).find('img').width();
+				widthTotal = widthTotal + jQuery(this).find('img').not('.thumbnail').width();
 			});
 
 			mobileFlexibleContainer.width((widthTotal+100)+'px');
@@ -54,63 +55,78 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 
 	nextItem: function() {
 
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 		if(!this.container){
 			this.container = this.getContainer();
 		}
-		if(!currentItem){
+		if(!this.currentItem){
 			nextItem = this.container.children('.item').first();
 		}else{
-			nextItem = currentItem.next('.item');
+			nextItem = this.currentItem.next('.item');
 			if(!nextItem.length && this.options.loop){
-				nextItem = currentItem.parent().children('.item').first();
+				nextItem = this.currentItem.parent().children('.item').first();
 			}
 		}
 		this.goNextItem(nextItem);
 	},
 
 	prevItem: function() {
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 		var prevItem = '';
 
-		if(currentItem) {
-			prevItem = currentItem.prev('.item');
+		if(this.currentItem) {
+			prevItem = this.currentItem.prev('.item');
 			if(!prevItem.length && this.options.loop){
 				prevItem = this.container.children('.item').last();
 			}
 		}
 
 		if(prevItem.length) {
-			if(currentItem) {
-				currentItem.fadeOut(this.options.effectDuration);
+			if(this.currentItem) {
+				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 
 			prevItem.fadeIn(this.options.effectDuration);
-			currentItem = prevItem;
+			this.currentItem = prevItem;
+
+			if(thumbnailList){
+				var classes = prevItem.children('a').attr('class').split(/\s+/);
+				thumbnailList.refreshActiveThumbnail( String(classes[0]).replace('itemPic_','') );
+			}
 
 			var _this = this;
-			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
 		}
 	},
 
 	showItem: function(item) {
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 		var nbrMiniPic = item.attr('class');
 		nbrMiniPic = nbrMiniPic.replace('itemMiniPic_','');
 		nextItem = jQuery('.itemPic_'+nbrMiniPic).parent('.item');
+		
+		if(thumbnailList){
+			thumbnailList.refreshActiveThumbnail(nbrMiniPic);
+		}
+
 		this.goNextItem();
 	},
 
 	goNextItem: function () {
 		if(nextItem.length) {
-			if(currentItem) {
-				currentItem.fadeOut(this.options.effectDuration);
+			if(this.currentItem) {
+				this.currentItem.fadeOut(this.options.effectDuration);
 			}
-			currentItem = nextItem;
+			this.currentItem = nextItem;
 			nextItem.fadeIn(this.options.effectDuration);
+
+			if(thumbnailList){
+				var classes = nextItem.children('a').attr('class').split(/\s+/);
+				thumbnailList.refreshActiveThumbnail( String(classes[0]).replace('itemPic_','') );
+			}
 			
 			var _this = this;
-			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
 		}		
-	},
+	}
 });

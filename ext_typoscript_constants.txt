@@ -14,8 +14,13 @@ plugin.tx_ingallery_pi1 {
 
 	singlePid = 7
 
-	gallery.width = 990m
-	gallery.height = 600c
-	gallery.maxW = 990
-	gallery.maxH = 600
+	image.width = 990m
+	image.height = 600c
+	image.maxW = 990
+	image.maxH = 600
+
+	thumbnail.width = 125c
+	thumbnail.height = 80m
+	thumbnail.maxW = 125c
+	thumbnail.maxH = 80m
 }

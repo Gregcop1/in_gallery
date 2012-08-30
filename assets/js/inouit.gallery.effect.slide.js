@@ -14,6 +14,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 		this.placeImage();
 		this.buildArrows();
 		this.loadFancyBox();
+		this.buildThumbnailList();
 		this.launch();
 	},
 
@@ -29,7 +30,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 	},
 
 	nextItem: function() {
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 		this.currentItem++;
 		var stop = false;
 		if(this.currentItem >= this.nbItem) {
@@ -44,12 +45,12 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, this.options.effectDuration);
 
 			var _this = this;
-			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
 		}
 	},
 
 	prevItem: function() {
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 		this.currentItem--;
 		var stop = false;
 		if(this.currentItem < 0) {
@@ -64,7 +65,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 			this.itemList.animate({ marginLeft: -(this.itemW*this.currentItem)+'px' }, this.options.effectDuration);
 
 			var _this = this;
-			timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);			
+			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);			
 		}
 	},
 });

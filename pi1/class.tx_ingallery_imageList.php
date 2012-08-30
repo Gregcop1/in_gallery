@@ -63,19 +63,14 @@ class tx_ingallery_imageList extends tx_gclib_list {
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_jquery_fancybox_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/jquery.fancybox/fancybox/jquery.fancybox-1.3.4.css" media="all">';
 		}
 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.image.js"></script>';
-	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery'] .= '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.imageNavigation.js"></script>';
 
 	 	if($this->config['effect'] && file_exists(t3lib_extMgm::extPath('in_gallery').'assets/js/'.$this->config['effect'].'.js')){
-	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['effect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['effect'].'.js"></script>';
-	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['navEffect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['navEffect'].'.js"></script>';
+	 	 	$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_effect_'.$this->config['effect']] = '<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/'.$this->config['effect'].'.js"></script>
+	 	 																								<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/js/inouit.gallery.thumbnailList.js"></script>';
 
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_launcher'] .= "<script type=\"text/javascript\">
 				jQuery(document).ready(function() {
 					jQuery('#c".$this->cObj->data['uid']." .imageList').inGallery(".$this->config['effect'].",{".$this->config['effectOptions']."});
-					jQuery('#c".$this->cObj->data['uid']." .galleryContenerMiniList').inGalleryNavigation(".$this->config['effect'].",".$this->config['navEffect'].",{".$this->config['navEffectOptions']."});
-				});
-				jQuery(document).load(function() {
-					inouit.gallery.imageNavigation.navigationEffect.refreshMaxWidth();
 				});
 			</script>";
 		}
