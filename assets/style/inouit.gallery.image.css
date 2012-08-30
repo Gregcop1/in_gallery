@@ -6,28 +6,32 @@
 .tx-ingallery-pi1 h4,
 .tx-ingallery-pi1 h5,
 .tx-ingallery-pi1 h6 {display: inline-block; width: 100%;}
-.tx-ingallery-pi1 .containerGallery { position: relative; margin: 0px 0; height: 600px; }
+.tx-ingallery-pi1 .containerGallery { position: relative; height: 600px; }
 .tx-ingallery-pi1 .containerGallery .item { height: 100%; text-align: center; }
 .tx-ingallery-pi1 .containerGallery .label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background-color: black; background-color: rgba(0,0,0,.8); color: white; text-align: left; }
 .tx-ingallery-pi1 .containerGallery .title { font-weight: bold; }
-
 .tx-ingallery-pi1 .containerFade .item { position: absolute; top: 0; left: 0; right: 0; }
 .tx-ingallery-pi1 .containerSlide { overflow: hidden; }
 .tx-ingallery-pi1 .containerSlide .item { float: left; position: relative; width: 100%; }
 
-.tx-ingallery-pi1 .arrowsContainer .arrow { position: absolute; top: 0; bottom: 0; width: 65px; z-index: 20; height: 600px;}
+.tx-ingallery-pi1 .arrowsContainer .arrow { position: absolute; top: 0; bottom: 0; width: 65px; z-index: 20;}
 .tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 0; background: url(../img/left.png) 0 50% no-repeat; }
 .tx-ingallery-pi1 .arrowsContainer .arrowRight { right: 0; background: url(../img/right.png) 100% 50% no-repeat; }
 
 
-.tx-ingallery-pi1 .galleryContenerMiniList { position: relative; padding: 0 30px; width: 890px; }
-.tx-ingallery-pi1 .albumMiniList { display: inline-block; margin:0; padding:0; width:100%; text-align:center;}
-.tx-ingallery-pi1 .albumMiniList  li { display: inline; /*width:125px; */margin:0 10px 0 0; padding:0 0 0 0; cursor: pointer;}
-.tx-ingallery-pi1 .albumMiniList  li img { /*width: 125px;*/ z-index:1; }
+.tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; }
+.tx-ingallery-pi1 .mask { position: relative; margin: 0 40px 0 35px; overflow: hidden; }
+.tx-ingallery-pi1 .thumbnails { display: inline-block; margin:0; padding:0; width:100%; }
+.tx-ingallery-pi1 .thumbnails  li { display: inline; margin:0 5px; padding:0 0 0 0; cursor: pointer;}
+.tx-ingallery-pi1 .galleryThumbnailList img { filter : alpha(opacity=40); opacity : 0.4; }
+.tx-ingallery-pi1 .galleryThumbnailList img.active { filter : alpha(opacity=100); opacity : 1; }
+.tx-ingallery-pi1 .galleryThumbnailList img:hover { filter : alpha(opacity=70); opacity : 0.7; }
 
-.tx-ingallery-pi1 .arrowsMiniContainer .arrow { position: absolute; top:0; bottom: 0; width: 35px; z-index: 20; height: 80px;}
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowLeft { left: 0px; background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
-.tx-ingallery-pi1 .arrowsMiniContainer .arrowRight { right: 0px; background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
+.tx-ingallery-pi1 .thumbnailNavigation { position: absolute; top: 0; left: 0; right: 0;  }
+.tx-ingallery-pi1 .galleryThumbnailList .arrow { float: left; width: 35px; height: 80px; }
+.tx-ingallery-pi1 .galleryThumbnailList .arrowLeft { background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
+.tx-ingallery-pi1 .galleryThumbnailList .arrowRight { float: right; left: auto; background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
+
 
 #albumList { width: 100%; margin:0; padding:0; }
 #albumList li { display: inline-block; vertical-align: top; }
@@ -39,5 +43,5 @@
 .tx-ingallery-pi1 .containerGalleryForMobile .mobileFlexibleContainer {  }
 .tx-ingallery-pi1 .containerGalleryForMobile .item { position: static; display: inline; }
 .tx-ingallery-pi1 .containerGalleryForMobile .label,
-.tx-ingallery-pi1 .containerGalleryForMobile+.galleryContenerMiniList { display: none; }
+.tx-ingallery-pi1 .containerGalleryForMobile+.galleryThumbnailList { display: none; }
 

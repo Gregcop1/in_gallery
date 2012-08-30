@@ -1,8 +1,3 @@
-timerImage = '';
-containerImage='';
-currentItem='';
-prevItem='';
-nextItem='';
 if(!inouit) {
 	var inouit = {};
 }
@@ -43,14 +38,25 @@ inouit.gallery.effect.defaults = {
 		effectDuration: 500,
 		loop: true,
 		fancyBoxImage: false,
+		enableThumbnailList: true
 	},
+	thumbnailList: '',
 	timer: '',
+
+	timerImage:  '',
+	containerImage: '',
+	currentItem: '',
+	prevItem: '',
+	nextItem: '',
 
 	initialize: function(){
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
 		this.loadFancyBox();
+
+		this.buildThumbnailList();
+
 		this.launch();
 	},
 
@@ -60,9 +66,9 @@ inouit.gallery.effect.defaults = {
 
 	placeImage: function(){
 		var cHeight = this.container.height();
-		var objPicture = this.container.children('.item').children('img');
+		var objPicture = this.container.children('.item').children('img').not('.thumbnail');
 		if (objPicture.length == 0){
-			objPicture = this.container.children('.item').children('a').children('img');
+			objPicture = this.container.children('.item').children('a').children('img').not('.thumbnail');
 		}
 		objPicture.each(function(){
 			var iHeight = jQuery(this).attr('height');
@@ -101,6 +107,14 @@ inouit.gallery.effect.defaults = {
 	
 	showItem: function(item) {},
 
+	buildThumbnailList: function() {
+		if (this.options.enableThumbnailList){
+			thumbnailList = jQuery.extend(true,{},inouit.gallery.thumbnailList);
+			thumbnailList.gallery = this;
+			thumbnailList.initialize();
+		}
+	},
+
 	loadFancyBox: function(){
 		if (this.options.fancyBoxImage){
 			if (jQuery('.openPicOnFancyBox').fancybox){
@@ -117,12 +131,12 @@ inouit.gallery.effect.defaults = {
 	},
 
 	stopEffect: function() {
-		clearTimeout(timerImage);
+		clearTimeout(this.timerImage);
 	},
 
 	startEffect: function(obj) {
-		timerImage = setTimeout(function() { obj.launch() },obj.options.timerDuration);
-	},
+		this.timerImage = setTimeout(function() { obj.launch() },obj.options.timerDuration);
+	}
 }
 
 jQuery.fn.inGallery = function(effect, options) {
