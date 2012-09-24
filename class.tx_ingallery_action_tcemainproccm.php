@@ -28,6 +28,19 @@ class tx_ingallery_action_tcemainproccm
     function processDatamap_postProcessFieldArray ($status, $table, $id, &$fieldArray, &$reference){
         global $FILEMOUNTS, $BE_USER, $TYPO3_CONF_VARS;
 
+        if($status == 'delete' && $table == 'tx_ingallery_album') {
+        	$this->deleteAllPictures($id);
+        }
+    }
+
+    function deleteAllPictures($tx_ingallery_album_uid){
+        $rec = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows('*', 'tx_ingallery_image', 'tx_ingallery_album_uid='.$tx_ingallery_album_uid, $groupBy='', $orderBy='', $limit='');
+        if (isset($rec) && count($rec) > 0){
+            foreach($rec as $pic){
+                $this->cleanSysRefIndex($pic['uid'],$pic['image']);
+            }
+        }
+        $GLOBALS['TYPO3_DB']->exec_DELETEquery('tx_ingallery_image', ' tx_ingallery_album_uid = '.$tx_ingallery_album_uid);
     }
 }
 ?>

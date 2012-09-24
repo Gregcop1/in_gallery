@@ -67,6 +67,7 @@ plugin.tx_ingallery_pi1 {
 					leftjoin  = tx_ingallery_album on (tx_ingallery_image.uid=tx_ingallery_album.tx_ingallery_image_uid )
 					andWhere = tx_ingallery_image.uid = {field:tx_ingallery_image_uid}
 					andWhere.insertData = 1
+					max = 1
 				}
 				renderObj = COA
 				renderObj{						

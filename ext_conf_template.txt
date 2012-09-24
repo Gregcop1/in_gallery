@@ -1,4 +1,4 @@
   # cat=basic/11; type=int; label=LLL:EXT:in_gallery/locallang.xml:extmng.maxWidth
-maxWidth=1024
+maxWidth=990
   # cat=basic/11; type=int; label=LLL:EXT:in_gallery/locallang.xml:extmng.maxHeight
-maxHeight=cat
+maxHeight=600
