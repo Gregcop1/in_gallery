@@ -8,20 +8,20 @@
 		<languageKey index="default" type="array">
 			<label index="flexform.configuration">Plugin's configuration</label>
 			<label index="flexform.code">Display</label>
-			<label index="flexform.code.categoryList">List of categories</label>
-			<label index="flexform.code.albumList">List of albums</label>
-			<label index="flexform.code.imageList">Gallery</label>
-			<label index="flexform.code.requestedAlbum">Album to show</label>
+			<label index="flexform.code.filter">Filter</label>
+			<label index="flexform.code.albumList">Albums</label>
+			<label index="flexform.code.imageList">Slideshow</label>
+			<label index="flexform.code.requestedAlbum">Default Album</label>
 			
 			<label index="error.noResult">No result</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
 			<label index="flexform.configuration">Configuration du plugin</label>
 			<label index="flexform.code">Affichage</label>
-			<label index="flexform.code.categoryList">Liste de catégorie</label>
-			<label index="flexform.code.albumList">Liste des albums</label>
-			<label index="flexform.code.imageList">Galerie</label>
-			<label index="flexform.code.requestedAlbum">Album à afficher</label>
+			<label index="flexform.code.filter">Filtres</label>
+			<label index="flexform.code.albumList">Albums</label>
+			<label index="flexform.code.imageList">Diaporama</label>
+			<label index="flexform.code.requestedAlbum">Album à afficher par défaut</label>
 			
 			<label index="error.noResult">Aucun résultat</label>
 		</languageKey>

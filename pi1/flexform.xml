@@ -14,18 +14,18 @@
 					<CODE>
 						<TCEforms>
 							<label>LLL:EXT:gc_lib/locallang.xml:flexform.code</label>
+							<onChange>reload</onChange>
 							<config>
-
 								<type>select</type>
 								<items type="array">
 									<numIndex index="0" type="array">
 										<numIndex index="0"></numIndex>
 										<numIndex index="1"></numIndex>
 									</numIndex>
-									<numIndex index="1" type="array">
-										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.categoryList</numIndex>
-										<numIndex index="1">categoryList</numIndex>
-									</numIndex>
+									<!--numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.filter</numIndex>
+										<numIndex index="1">filter</numIndex>
+									</numIndex-->
 									<numIndex index="2" type="array">
 										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.albumList</numIndex>
 										<numIndex index="1">albumList</numIndex>
@@ -43,6 +43,7 @@
 					<requestedAlbum>
 						<TCEforms>
 							<exclude>1</exclude>
+							<displayCond>FIELD:CODE:=:imageList</displayCond>
 							<label>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.code.requestedAlbum</label>
 							<config>
       							<type>select</type>
