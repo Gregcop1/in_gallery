@@ -12,7 +12,7 @@ plugin.tx_ingallery_pi1 {
 	openPictureWithFancyBox = 1
 
 
-	singlePid = 7
+	singlePid = 
 
 	image.width = 990m
 	image.height = 600c
