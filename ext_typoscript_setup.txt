@@ -20,7 +20,9 @@ plugin.tx_ingallery_pi1 {
 		groupBy = 
 		limit = 
 
-		effect = inouit.gallery.effect.fade
+		effect = sDEF|lDEF|effect|vDEF
+		effect.ifEmpty = inouit.gallery.effect.fade
+		
 		effectOptions =  fancyBoxImage: {$plugin.tx_ingallery_pi1.openPictureWithFancyBox}
 
 		requestedAlbum = sDEF|lDEF|requestedAlbum|vDEF

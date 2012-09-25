@@ -12,6 +12,9 @@
 			<label index="flexform.code.albumList">Albums</label>
 			<label index="flexform.code.imageList">Slideshow</label>
 			<label index="flexform.code.requestedAlbum">Default Album</label>
+			<label index="flexform.effect">Effect</label>
+			<label index="flexform.effect.fade">Fade</label>
+			<label index="flexform.effect.slide">Slide</label>
 			
 			<label index="error.noResult">No result</label>
 		</languageKey>
@@ -22,6 +25,9 @@
 			<label index="flexform.code.albumList">Albums</label>
 			<label index="flexform.code.imageList">Diaporama</label>
 			<label index="flexform.code.requestedAlbum">Album à afficher par défaut</label>
+			<label index="flexform.effect">Effet visuel</label>
+			<label index="flexform.effect.fade">Fade</label>
+			<label index="flexform.effect.slide">Slide</label>
 			
 			<label index="error.noResult">Aucun résultat</label>
 		</languageKey>

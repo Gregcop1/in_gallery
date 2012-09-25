@@ -61,6 +61,26 @@
 		      				</config>
 						</TCEforms>
 					</requestedAlbum>
+					<effect>
+						<TCEforms>
+							<exclude>1</exclude>
+							<displayCond>FIELD:CODE:=:imageList</displayCond>
+							<label>LLL:EXT:in_gallery/pi1/locallang.xml:flexform.effect</label>
+							<config>
+								<type>select</type>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.effect.fade</numIndex>
+										<numIndex index="1">inouit.gallery.effect.fade</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">LLL:EXT:in_gallery/pi1/locallang.xml:flexform.effect.slide</numIndex>
+										<numIndex index="1">inouit.gallery.effect.slide</numIndex>
+									</numIndex>
+								</items>
+		      				</config>
+						</TCEforms>
+					</effect>
 					<additionalTSConfig>
 						<TCEforms>
 							<label>LLL:EXT:gc_lib/locallang.xml:flexform.additionalTSConfig</label>
