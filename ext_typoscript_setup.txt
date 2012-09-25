@@ -65,7 +65,7 @@ plugin.tx_ingallery_pi1 {
 					uidInList.field = tx_ingallery_image_uid
 					pidInList.field = pid
 					leftjoin  = tx_ingallery_album on (tx_ingallery_image.uid=tx_ingallery_album.tx_ingallery_image_uid )
-					andWhere = tx_ingallery_image.uid = {field:tx_ingallery_image_uid}
+					andWhere = tx_ingallery_image.uid = '{field:tx_ingallery_image_uid}'
 					andWhere.insertData = 1
 					max = 1
 				}
@@ -107,7 +107,7 @@ plugin.tx_ingallery_pi1 {
 				table = tx_ingallery_album
 				select{
 					pidInList.field = pid
-					andWhere = tx_ingallery_album.uid = {field:tx_ingallery_album_uid}
+					andWhere = tx_ingallery_album.uid = '{field:tx_ingallery_album_uid}'
 					andWhere.insertData = 1
 				}
 				renderObj = COA
@@ -160,38 +160,6 @@ plugin.tx_ingallery_pi1 {
 				params = id="itemMiniPic_{field:uid}" class="thumbnail"
 				params.insertData = 1
 			}
-
-
-#			ALBUM_MINI_LIST = CONTENT
-#			ALBUM_MINI_LIST{
-#				wrap = <div class="galleryContenerMiniList"><ul class="albumMiniList">|</ul><div class="arrowsMiniContainer"></div></div>
-#
-#				table = tx_ingallery_album
-#				select{
-#					uidInList.field = tx_ingallery_album_uid
-#					pidInList.field = pid
-#					leftjoin  = tx_ingallery_image on (tx_ingallery_image.tx_ingallery_album_uid=tx_ingallery_album.uid)
-#					andWhere = tx_ingallery_album.uid = {field:tx_ingallery_album_uid}
-#					andWhere.insertData = 1
-#				}
-#				renderObj = COA
-#				renderObj{						
-#				  	wrap = <li class="itemMiniPic_{field:uid}">|</li>
-#				  	wrap.insertData=1
-#				  	10 = IMAGE
-#				  	10{
-#						file{
-#						  	import.field = image
-#						  	quality = 100
-#							width = 125c
-#							height = 80m
-#							maxW = 125c
-#							maxH = 80m
-#						}
-#						altText.field = title
-#					}
-#				}
-#			}
 		}
 	}
 }
