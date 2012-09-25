@@ -38,7 +38,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			var widthTotal = 0;
 			var mobileFlexibleContainer = _this.container.children('.mobileFlexibleContainer');
 			var objMiniPicture = mobileFlexibleContainer.children('.item');
-			objMiniPicture.find('img').not('.thumbnail').css('maxWidth',_this.container.width()+'px')
+			objMiniPicture.find('img').not('.thumbnail').css('maxWidth',(_this.container.width()-30)+'px')
 			objMiniPicture.each(function(){
 				widthTotal = widthTotal + jQuery(this).find('img').not('.thumbnail').width();
 			});

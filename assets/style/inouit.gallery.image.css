@@ -43,5 +43,6 @@
 .tx-ingallery-pi1 .containerGalleryForMobile .mobileFlexibleContainer {  }
 .tx-ingallery-pi1 .containerGalleryForMobile .item { position: static; display: inline; }
 .tx-ingallery-pi1 .containerGalleryForMobile .label,
+.tx-ingallery-pi1 .containerGalleryForMobile .thumbnail,
 .tx-ingallery-pi1 .containerGalleryForMobile+.galleryThumbnailList { display: none; }
 
