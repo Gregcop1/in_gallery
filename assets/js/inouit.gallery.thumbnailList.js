@@ -63,7 +63,7 @@ inouit.gallery.thumbnailList = {
 		var widthTotal = 0;
 		var objMiniPicture = list.children('li');
 		objMiniPicture.each(function(){
-			widthTotal = widthTotal + jQuery(this).children('img').width()+parseInt( (jQuery(this).css('marginLeft')).replace('px','') )+parseInt( (jQuery(this).css('marginRight')).replace('px','') );
+			widthTotal = widthTotal + jQuery(this).width()+parseFloat( (jQuery(this).css('marginLeft')).replace('px','') )+parseFloat( (jQuery(this).css('marginRight')).replace('px','') )+parseFloat( (jQuery(this).css('paddingLeft')).replace('px','') )+parseFloat( (jQuery(this).css('paddingRight')).replace('px','')+parseFloat( jQuery(this).css('borderLeftWidth').replace('px',''))+parseFloat( jQuery(this).css('borderRightWidth').replace('px','')) );
 		});
 		
 		list.width(widthTotal+'px');
@@ -76,11 +76,11 @@ inouit.gallery.thumbnailList = {
 		if( inouit.gallery.thumbnailList.currentPosition > 0 ){
 			list.children('li').each(function(){
 				if(notYet) {
-					if( ((newPos + parseInt(jQuery(this).css('marginLeft')) + parseInt(jQuery(this).width())) <= maxWidth) ){
-						newPos += parseInt(jQuery(this).css('marginLeft')) + parseInt(jQuery(this).width()) + parseInt(jQuery(this).css('marginRight'))
+					if( ((newPos + parseFloat(jQuery(this).css('marginLeft')) + parseFloat(jQuery(this).width())) <= maxWidth) ){
+						newPos += parseFloat(jQuery(this).css('marginLeft')) + parseFloat(jQuery(this).width()) + parseFloat(jQuery(this).css('marginRight'))
 					}else {
 						if(newPos != 0 ){
-							newPos += parseInt(jQuery(this).css('marginLeft')) + parseInt(jQuery(this).width()) + parseInt(jQuery(this).css('marginRight'))
+							newPos += parseFloat(jQuery(this).css('marginLeft')) + parseFloat(jQuery(this).width()) + parseFloat(jQuery(this).css('marginRight'))
 						}
 						notYet = false;
 					}
@@ -97,8 +97,8 @@ inouit.gallery.thumbnailList = {
 		var maxWidth = inouit.gallery.thumbnailList.currentPosition + maskContainer.width();
 		if( maxWidth < list.width() ){
 			list.children('li').each(function(){
-				if( notYet && ((newPos + parseInt(jQuery(this).css('marginLeft')) + parseInt(jQuery(this).width())) <= maxWidth) ){
-					newPos += parseInt(jQuery(this).css('marginLeft')) + parseInt(jQuery(this).width()) + parseInt(jQuery(this).css('marginRight'))
+				if( notYet && ((newPos + parseFloat(jQuery(this).css('marginLeft')) + parseFloat(jQuery(this).width())) <= maxWidth) ){
+					newPos += parseFloat(jQuery(this).css('marginLeft')) + parseFloat(jQuery(this).width()) + parseFloat(jQuery(this).css('marginRight'))
 				}else {
 					notYet = false;
 				}
