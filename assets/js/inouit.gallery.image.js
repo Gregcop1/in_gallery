@@ -56,9 +56,8 @@ inouit.gallery.effect.defaults = {
 		this.buildArrows();
 		this.buildAutoStart();
 		this.loadFancyBox();
-
 		this.buildThumbnailList();
-
+		this.activeOver();
 		this.launch();
 	},
 
@@ -83,7 +82,7 @@ inouit.gallery.effect.defaults = {
 	buildArrows: function(){
 		if(this.container.find('.item').length){
 			var arrows = jQuery('<div/>').addClass('arrowsContainer')
-										.appendTo(this.container);
+										.appendTo(this.container).hide();
 			var _this = this;
 			var left = jQuery('<a/>').attr('href','javascript:;')
 									.addClass('arrow')
@@ -101,7 +100,7 @@ inouit.gallery.effect.defaults = {
 	buildAutoStart: function(){
 		if(this.container.find('.item').length){
 			var autoStart = jQuery('<div/>').addClass('autoStartContainer')
-										.appendTo(this.container);
+										.appendTo(this.container).hide();
 
 			var _this = this;
 			if(this.options.autoStart) {
@@ -185,7 +184,9 @@ inouit.gallery.effect.defaults = {
 
 	startEffect: function(obj) {
 		this.timerImage = setTimeout(function() { obj.launch() },obj.options.timerDuration);
-	}
+	},
+
+	activeOver: function() {}
 }
 
 jQuery.fn.inGallery = function(effect, options) {

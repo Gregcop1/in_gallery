@@ -121,6 +121,7 @@ plugin.tx_ingallery_pi1 {
 				  		required 	= 1
 				  	}
 				}
+				wrap = <div class="titleAlbum">|</div>
 			}
 
 			LEGEND = TEXT

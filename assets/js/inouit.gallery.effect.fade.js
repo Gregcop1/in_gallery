@@ -14,6 +14,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			this.buildAutoStart();
 			this.loadFancyBox();
 			this.buildThumbnailList();
+			this.activeOver();
 			this.launch();
 		}
 	},
@@ -27,6 +28,8 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		}else  {
 			this.container.children('.item').fadeOut(0);
 		}
+		this.container.children('.item').children('.label').hide();
+		this.container.children('.titleAlbum').hide();
 	},
 
 	prepareForMobile: function() {
@@ -84,11 +87,13 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 
 		if(prevItem.length) {
 			if(this.currentItem) {
+				this.currentItem.removeClass('current');
 				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 
 			prevItem.fadeIn(this.options.effectDuration);
 			this.currentItem = prevItem;
+			this.currentItem.addClass('current');
 
 			if(thumbnailList){
 				var classes = prevItem.children('a').attr('class').split(/\s+/);
@@ -118,11 +123,13 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 	goNextItem: function () {
 		if(nextItem.length) {
 			if(this.currentItem) {
+				this.currentItem.removeClass('current');
 				this.currentItem.fadeOut(this.options.effectDuration);
 			}
 			this.currentItem = nextItem;
 			nextItem.fadeIn(this.options.effectDuration);
-
+			nextItem.addClass('current');
+			
 			if(thumbnailList){
 				var classes = nextItem.children('a').attr('class').split(/\s+/);
 				thumbnailList.refreshActiveThumbnail( String(classes[0]).replace('itemPic_','') );
@@ -133,5 +140,25 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 				this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
 			}
 		}		
+	},
+
+	activeOver: function() {
+		var _this = this;
+		this.container.hover(
+			function(){
+				_this.container.children('.titleAlbum').fadeIn('slow');
+				_this.container.children('.arrowsContainer').show('slow');
+				_this.container.children('.autoStartContainer').show('slow');
+				_this.container.children('.item').children('.label').fadeIn();
+			},
+			function(){
+				_this.container.children('.titleAlbum').fadeOut('slow');
+				_this.container.children('.arrowsContainer').hide('slow');
+				_this.container.children('.autoStartContainer').hide('slow');		
+				_this.container.children('.item').not('.current').children('.label').hide();
+				_this.currentItem.children('.label').fadeOut();
+			}
+		);
 	}
+
 });

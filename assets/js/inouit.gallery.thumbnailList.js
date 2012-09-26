@@ -33,9 +33,9 @@ inouit.gallery.thumbnailList = {
 								.appendTo(maskContainer);
 		var item = '';
 		var _this = this;
-		this.gallery.container.find('.thumbnail').each(function(){
+		this.gallery.container.find('.thumbnail').each(function(n,i){
 			jQuery(this).addClass('inactive');
-			item = jQuery('<li/>').addClass(jQuery(this).attr('id'))
+			item = jQuery('<li/>').addClass('miniItemListNb_'+n).addClass(jQuery(this).attr('id'))
 								.click( function() { _this.gallery.showItem(jQuery(this)) })
 								.append(this);
 			list.append(item);
