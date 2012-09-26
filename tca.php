@@ -170,7 +170,7 @@ $TCA['tx_ingallery_album'] = array (
 $TCA['tx_ingallery_image'] = array (
 	'ctrl' => $TCA['tx_ingallery_image']['ctrl'],
 	'interface' => array (
-		'showRecordFieldList' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden,tx_ingallery_album_uid,title,legend,embed,link,date,copyright,image'
+		'showRecordFieldList' => 'sys_language_uid,l10n_parent,l10n_diffsource,hidden,starttime,endtime,tx_ingallery_album_uid,title,legend,embed,link,date,copyright,image'
 	),
 	'feInterface' => $TCA['tx_ingallery_image']['feInterface'],
 	'columns' => array (
@@ -211,6 +211,34 @@ $TCA['tx_ingallery_image'] = array (
 			'config'  => array (
 				'type'    => 'check',
 				'default' => '0'
+			)
+		),
+		'starttime' => array (		
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+			'config'  => array (
+				'type'     => 'input',
+				'size'     => '8',
+				'max'      => '20',
+				'eval'     => 'date',
+				'default'  => '0',
+				'checkbox' => '0'
+			)
+		),
+		'endtime' => array (		
+			'exclude' => 1,
+			'label'   => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+			'config'  => array (
+				'type'     => 'input',
+				'size'     => '8',
+				'max'      => '20',
+				'eval'     => 'date',
+				'checkbox' => '0',
+				'default'  => '0',
+				'range'    => array (
+					'upper' => mktime(3, 14, 7, 1, 19, 2038),
+					'lower' => mktime(0, 0, 0, date('m')-1, date('d'), date('Y'))
+				)
 			)
 		),
 		'tx_ingallery_album_uid' => array (		
@@ -334,7 +362,7 @@ $TCA['tx_ingallery_image'] = array (
 		'0' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, tx_ingallery_album_uid, title;;;;2-2-2, image, legend, embed, link;;;;3-3-3, date, source, copyright')
 	),
 	'palettes' => array (
-		'1' => array('showitem' => '')
+		'1' => array('showitem' => 'starttime, endtime')
 	)
 );
 

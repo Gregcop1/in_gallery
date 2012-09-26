@@ -20,7 +20,7 @@ $TCA['tx_ingallery_album'] = array (
                 'delete'                                        => 'deleted',   
                 'enablecolumns'                         => array (              
                         'disabled'                              => 'hidden',    
-                        'starttime'                     => 'starttime', 
+                        'starttime'                             => 'starttime', 
                         'endtime'                               => 'endtime',
                 ),
                 'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
@@ -44,7 +44,9 @@ $TCA['tx_ingallery_image'] = array (
                 'sortby' => 'sorting',  
                 'delete' => 'deleted',  
                 'enablecolumns' => array (              
-                        'disabled' => 'hidden',
+                        'disabled'              => 'hidden',    
+                        'starttime'             => 'starttime', 
+                        'endtime'               => 'endtime',
                 ),
 		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY).'tca.php',
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_ingallery_image.gif',

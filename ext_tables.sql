@@ -42,6 +42,8 @@ CREATE TABLE tx_ingallery_image (
 	sorting int(10) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
+	starttime int(11) DEFAULT '0' NOT NULL,
+	endtime int(11) DEFAULT '0' NOT NULL,
 	tx_ingallery_album_uid int(11) DEFAULT '0' NOT NULL,
 	title tinytext,
 	legend text,
