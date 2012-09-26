@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 1,
 	'lockType' => '',
 	'author_company' => 'Inouit',
-	'version' => '0.0.1',
+	'version' => '1.1',
 	'constraints' => array(
 		'depends' => array(
 		),
