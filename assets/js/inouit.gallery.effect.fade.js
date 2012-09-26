@@ -11,6 +11,7 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 		if(!this.container.hasClass('containerGalleryForMobile')) {
 			this.placeImage();
 			this.buildArrows();
+			this.buildAutoStart();
 			this.loadFancyBox();
 			this.buildThumbnailList();
 			this.launch();
@@ -95,7 +96,9 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			}
 
 			var _this = this;
-			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			if (this.options.autoStart) {
+				this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			}
 		}
 	},
 
@@ -126,7 +129,9 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 			}
 			
 			var _this = this;
-			this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			if (this.options.autoStart) {
+				this.timerImage = setTimeout(function() { _this.nextItem() },this.options.timerDuration);
+			}
 		}		
 	}
 });

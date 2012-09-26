@@ -13,6 +13,7 @@ jQuery.extend(true,inouit.gallery.effect.slide, {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
+		this.buildAutoStart();
 		this.loadFancyBox();
 		this.buildThumbnailList();
 		this.launch();

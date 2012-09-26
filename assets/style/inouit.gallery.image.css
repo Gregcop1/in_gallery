@@ -18,6 +18,10 @@
 .tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 0; background: url(../img/left.png) 0 50% no-repeat; }
 .tx-ingallery-pi1 .arrowsContainer .arrowRight { right: 0; background: url(../img/right.png) 100% 50% no-repeat; }
 
+.tx-ingallery-pi1 .autoStartContainer .autoStart { position: absolute; top: 5%; right:5%; width: 26px; height: 26px; z-index: 20;}
+.tx-ingallery-pi1 .autoStartContainer .autoStartLaunch { background: url(../img/play.png) 0 0 no-repeat; }
+.tx-ingallery-pi1 .autoStartContainer .autoStartStop { background: url(../img/pause.png) 0 0 no-repeat; }
+
 
 .tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; }
 .tx-ingallery-pi1 .mask { position: relative; margin: 0 40px 0 35px; overflow: hidden; }

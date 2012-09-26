@@ -38,7 +38,8 @@ inouit.gallery.effect.defaults = {
 		effectDuration: 500,
 		loop: true,
 		fancyBoxImage: false,
-		enableThumbnailList: true
+		enableThumbnailList: true,
+		autoStart: false
 	},
 	thumbnailList: '',
 	timer: '',
@@ -53,6 +54,7 @@ inouit.gallery.effect.defaults = {
 		this.buildContainer();
 		this.placeImage();
 		this.buildArrows();
+		this.buildAutoStart();
 		this.loadFancyBox();
 
 		this.buildThumbnailList();
@@ -82,7 +84,6 @@ inouit.gallery.effect.defaults = {
 		if(this.container.find('.item').length){
 			var arrows = jQuery('<div/>').addClass('arrowsContainer')
 										.appendTo(this.container);
-
 			var _this = this;
 			var left = jQuery('<a/>').attr('href','javascript:;')
 									.addClass('arrow')
@@ -97,6 +98,40 @@ inouit.gallery.effect.defaults = {
 		}
 	},
 
+	buildAutoStart: function(){
+		if(this.container.find('.item').length){
+			var autoStart = jQuery('<div/>').addClass('autoStartContainer')
+										.appendTo(this.container);
+
+			var _this = this;
+			if(this.options.autoStart) {
+				var start = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('autoStart')
+									.addClass('autoStartLaunch')
+									.click( function() {_this.autoStartLaunch(); })
+									.appendTo(autoStart).hide();
+			
+				var stop = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('autoStart')
+									.addClass('autoStartStop')
+									.click( function() {_this.autoStartStop(); })
+									.appendTo(autoStart).show();
+			} else {
+				var start = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('autoStart')
+									.addClass('autoStartLaunch')
+									.click( function() {_this.autoStartLaunch(); })
+									.appendTo(autoStart).show();
+			
+				var stop = jQuery('<a/>').attr('href','javascript:;')
+									.addClass('autoStart')
+									.addClass('autoStartStop')
+									.click( function() {_this.autoStartStop(); })
+									.appendTo(autoStart).hide();
+			}
+		}
+	},
+
 	launch: function() {
 		this.nextItem();
 	},
@@ -106,6 +141,20 @@ inouit.gallery.effect.defaults = {
 	prevItem: function() {},
 	
 	showItem: function(item) {},
+	
+	autoStartLaunch: function() {
+		this.options.autoStart = true;
+		jQuery('.autoStartLaunch').hide();
+		jQuery('.autoStartStop').show();
+		this.nextItem();
+	},
+	
+	autoStartStop: function() {
+		this.options.autoStart = false;
+		jQuery('.autoStartStop').hide();
+		jQuery('.autoStartLaunch').show();
+		this.stopEffect();
+	},
 
 	buildThumbnailList: function() {
 		if (this.options.enableThumbnailList){
