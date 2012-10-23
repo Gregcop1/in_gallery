@@ -26,7 +26,7 @@
 .tx-ingallery-pi1 .autoStartContainer .autoStartStop { background: url(../img/pause.png) 0 0 no-repeat; }
 
 
-.tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; background:#181818; padding:10px 0 30px 0;}
+.tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; background:#181818; padding:20px 0 20px 0;}
 .tx-ingallery-pi1 .mask { position: relative; margin: 0 40px 0 35px; overflow: hidden; }
 .tx-ingallery-pi1 .thumbnails { display: inline-block; margin:0; padding:0; width:100%; }
 .tx-ingallery-pi1 .thumbnails  li { display: inline; margin:0 5px; padding:0 0 0 0; cursor: pointer;}
@@ -34,7 +34,7 @@
 .tx-ingallery-pi1 .galleryThumbnailList img.active { filter : alpha(opacity=100); opacity : 1; }
 .tx-ingallery-pi1 .galleryThumbnailList img:hover { filter : alpha(opacity=70); opacity : 0.7; }
 
-.tx-ingallery-pi1 .thumbnailNavigation { position: absolute; top: 10px; left: 0; right: 0;  }
+.tx-ingallery-pi1 .thumbnailNavigation { position: absolute; top: 20px; left: 0; right: 0;  }
 .tx-ingallery-pi1 .galleryThumbnailList .arrow { float: left; width: 35px; height: 80px; }
 .tx-ingallery-pi1 .galleryThumbnailList .arrowLeft { background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
 .tx-ingallery-pi1 .galleryThumbnailList .arrowRight { float: right; left: auto; background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
