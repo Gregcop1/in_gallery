@@ -7,6 +7,7 @@
 .tx-ingallery-pi1 h5,
 .tx-ingallery-pi1 h6 {display: inline-block; width: 100%;}
 .tx-ingallery-pi1 .titleAlbum { position: absolute; top: 0; left: 0; right: 0; margin: 10px; color: white; text-align: left; font-weight: bold; z-index:2;}
+.tx-ingallery-pi1 .titleAlbum h2 { color: white; text-shadow: black 0.1em 0.1em 0.2em}
 .tx-ingallery-pi1 .containerGallery { position: relative; height: 600px; background:#181818; }
 .tx-ingallery-pi1 .containerGallery .item { height: 100%; text-align: center; }
 .tx-ingallery-pi1 .containerGallery .label { position: absolute; bottom: 0; left: 0; right: 0; margin:0; padding:0;}
