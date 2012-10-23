@@ -14,9 +14,12 @@
 .tx-ingallery-pi1 .containerGallery .label p { margin:0; padding: 20px 20px 0px 20px; background-color: black; background-color: rgba(0,0,0,.8); color: white; text-align: left; }
 .tx-ingallery-pi1 .containerGallery .label p:last-child { padding: 20px 20px 20px 20px; }
 .tx-ingallery-pi1 .containerGallery .title { font-weight: bold; }
+.tx-ingallery-pi1 .containerGallery .itemList { height: 100%; }
 .tx-ingallery-pi1 .containerFade .item { position: absolute; top: 0; left: 0; right: 0; }
 .tx-ingallery-pi1 .containerSlide { overflow: hidden; }
-.tx-ingallery-pi1 .containerSlide .item { float: left; position: relative; width: 100%; }
+.tx-ingallery-pi1 .containerSlide .item { float: left; position: relative; width: 100%; vertical-align: middle;}
+.tx-ingallery-pi1 .containerSlide .item a { display: block; height: 100%; vertical-align: middle; }
+.tx-ingallery-pi1 .containerSlide .item img { vertical-align: middle; }
 
 .tx-ingallery-pi1 .arrowsContainer .arrow { position: absolute; top: 0; bottom: 0; width: 65px; z-index: 20;}
 .tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 0; background: url(../img/left.png) 0 50% no-repeat; }
@@ -43,9 +46,6 @@
 
 #albumList { width: 100%; margin:0; padding:0; }
 #albumList li { display: inline-block; vertical-align: top; }
-
-
-
 
 .tx-ingallery-pi1 .containerGalleryForMobile { position: static; height: auto; overflow: auto; }
 .tx-ingallery-pi1 .containerGalleryForMobile .mobileFlexibleContainer {  }

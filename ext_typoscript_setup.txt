@@ -78,8 +78,8 @@ plugin.tx_ingallery_pi1 {
 						file{
 						  	import.field = image
 						  	quality = 100
-							width = 280c
-							height = 150
+							width = {$plugin.tx_ingallery_pi1.album.width}
+							height = {$plugin.tx_ingallery_pi1.album.width}
 						}
 						altText.field = title
 						stdWrap.typolink{
