@@ -50,6 +50,8 @@ class tx_ingallery_albumList extends tx_gclib_list {
 	function main($configuration, $tableName = '') {
 	 	parent::main($configuration, 'tx_ingallery_album');
 
+	 	
+
 	 	//insertion de JS à la demande
 	 	if ($this->config['includeCSS']){
 			$GLOBALS['TSFE']->additionalHeaderData['tx_ingallery_css'] = '<link rel="stylesheet" type="text/css" href="'.t3lib_extMgm::siteRelPath('in_gallery').'assets/style/inouit.gallery.image.css" media="all">';
