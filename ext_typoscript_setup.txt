@@ -117,7 +117,7 @@ plugin.tx_ingallery_pi1 {
 				  	10 = TEXT
 				  	10{
 				  		field 		= title
-				  		wrap 		= <h2>|</h2>
+				  		wrap 		= |
 				  		required 	= 1
 				  	}
 				}

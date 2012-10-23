@@ -6,8 +6,7 @@
 .tx-ingallery-pi1 h4,
 .tx-ingallery-pi1 h5,
 .tx-ingallery-pi1 h6 {display: inline-block; width: 100%;}
-.tx-ingallery-pi1 .titleAlbum { position: absolute; top: 0; left: 0; right: 0; margin: 10px; color: white; text-align: left; font-weight: bold; z-index:2;}
-.tx-ingallery-pi1 .titleAlbum h2 { color: white; text-shadow: black 0.1em 0.1em 0.2em}
+.tx-ingallery-pi1 .titleAlbum { position: absolute; top: 0; left: 0; right: 0; margin: 10px; color: white; text-align: left; font-weight: bold; z-index:2; color: white; text-shadow: black 0.1em 0.1em 0.2em; font-size: 1.6em;}
 .tx-ingallery-pi1 .containerGallery { position: relative; height: 600px; background:#181818; }
 .tx-ingallery-pi1 .containerGallery .item { height: 100%; text-align: center; }
 .tx-ingallery-pi1 .containerGallery .label { position: absolute; bottom: 0; left: 0; right: 0; margin:0; padding:0;}
@@ -22,15 +21,15 @@
 .tx-ingallery-pi1 .containerSlide .item img { vertical-align: middle; }
 
 .tx-ingallery-pi1 .arrowsContainer .arrow { position: absolute; top: 0; bottom: 0; width: 65px; z-index: 20;}
-.tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 0; background: url(../img/left.png) 0 50% no-repeat; }
-.tx-ingallery-pi1 .arrowsContainer .arrowRight { right: 0; background: url(../img/right.png) 100% 50% no-repeat; }
+.tx-ingallery-pi1 .arrowsContainer .arrowLeft { left: 25px; background: url(../img/middle-left.png) 0 50% no-repeat; }
+.tx-ingallery-pi1 .arrowsContainer .arrowRight { right: 25px; background: url(../img/middle-right.png) 100% 50% no-repeat; }
 
 .tx-ingallery-pi1 .autoStartContainer .autoStart { position: absolute; top: 5%; right:5%; width: 26px; height: 26px; z-index: 20;}
 .tx-ingallery-pi1 .autoStartContainer .autoStartLaunch { background: url(../img/play.png) 0 0 no-repeat; }
 .tx-ingallery-pi1 .autoStartContainer .autoStartStop { background: url(../img/pause.png) 0 0 no-repeat; }
 
 
-.tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; background:#181818; padding:20px 0 20px 0;}
+.tx-ingallery-pi1 .galleryThumbnailList {  position: relative; height: 80px; background:#181818; padding:20px 25px 20px 25px; }
 .tx-ingallery-pi1 .mask { position: relative; margin: 0 40px 0 35px; overflow: hidden; }
 .tx-ingallery-pi1 .thumbnails { display: inline-block; margin:0; padding:0; width:100%; }
 .tx-ingallery-pi1 .thumbnails  li { display: inline; margin:0 5px; padding:0 0 0 0; cursor: pointer;}
@@ -38,10 +37,10 @@
 .tx-ingallery-pi1 .galleryThumbnailList img.active { filter : alpha(opacity=100); opacity : 1; }
 .tx-ingallery-pi1 .galleryThumbnailList img:hover { filter : alpha(opacity=70); opacity : 0.7; }
 
-.tx-ingallery-pi1 .thumbnailNavigation { position: absolute; top: 20px; left: 0; right: 0;  }
-.tx-ingallery-pi1 .galleryThumbnailList .arrow { float: left; width: 35px; height: 80px; }
-.tx-ingallery-pi1 .galleryThumbnailList .arrowLeft { background: #FFF url(../img/mini-left.png) 0 50% no-repeat; }
-.tx-ingallery-pi1 .galleryThumbnailList .arrowRight { float: right; left: auto; background: #FFF url(../img/mini-right.png) 100% 50% no-repeat; }
+.tx-ingallery-pi1 .thumbnailNavigation { position: absolute; top: 20px; left: 0; right: 0; }
+.tx-ingallery-pi1 .galleryThumbnailList .arrow { float: left; width: 27px; height: 80px; }
+.tx-ingallery-pi1 .galleryThumbnailList .arrowLeft { margin:0 0 0 25px; background: url(../img/middle-left.png) 0 50% no-repeat; }
+.tx-ingallery-pi1 .galleryThumbnailList .arrowRight { margin:0 25px 0 0; float: right; left: auto; background: url(../img/middle-right.png) 100% 50% no-repeat; }
 
 
 #albumList { width: 100%; margin:0; padding:0; }
