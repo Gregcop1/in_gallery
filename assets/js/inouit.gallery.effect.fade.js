@@ -110,6 +110,10 @@ jQuery.extend(true,inouit.gallery.effect.fade, {
 	showItem: function(item) {
 		clearTimeout(this.timerImage);
 		var nbrMiniPic = item.attr('class');
+		if (nbrMiniPic.indexOf(' ') != false){
+			nbrMiniPic = nbrMiniPic.split(' ');
+			nbrMiniPic = nbrMiniPic[1];
+		}
 		nbrMiniPic = nbrMiniPic.replace('itemMiniPic_','');
 		nextItem = jQuery('.itemPic_'+nbrMiniPic).parent('.item');
 		

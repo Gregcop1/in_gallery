@@ -11,16 +11,15 @@ plugin.tx_ingallery_pi1 {
 	# cat=plugin/in_gallery/010; type=boolean; label= LLL:EXT:in_gallery/locallang.xml:extmng.openPictureWithFancyBox
 	openPictureWithFancyBox = 1
 
-
 	singlePid = 
 
 	image.width = 990m
-	image.height = 600c
+	image.height = 600
 	image.maxW = 990
 	image.maxH = 600
 
-	thumbnail.width = 125c
-	thumbnail.height = 80m
-	thumbnail.maxW = 125c
-	thumbnail.maxH = 80m
+	thumbnail.width = 80c
+	thumbnail.height = 80
+	thumbnail.maxW = 80c
+	thumbnail.maxH = 80
 }
