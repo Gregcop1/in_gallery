@@ -43,8 +43,8 @@
 .tx-ingallery-pi1 .galleryThumbnailList .arrowRight { margin:0 25px 0 0; float: right; left: auto; background: url(../img/middle-right.png) 100% 50% no-repeat; }
 
 
-#albumList { width: 100%; margin:0; padding:0; }
-#albumList li { display: inline-block; vertical-align: top; }
+.albumList { width: 100%; margin:0; padding:0; }
+.albumList li { display: inline-block; vertical-align: top; }
 
 .tx-ingallery-pi1 .containerGalleryForMobile { position: static; height: auto; overflow: auto; }
 .tx-ingallery-pi1 .containerGalleryForMobile .mobileFlexibleContainer {  }
