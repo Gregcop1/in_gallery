@@ -78,7 +78,6 @@ class tx_ingallery_albumList extends tx_gclib_list {
 	}
  }
 
-
 if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_albumList.php'])	{
 	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_albumList.php']);
 }
