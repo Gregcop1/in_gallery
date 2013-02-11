@@ -37,7 +37,7 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib.php');
  * @package	TYPO3
  * @subpackage	tx_ingallery
  */
-class tx_ingallery_pi1 extends tx_gclib {
+class tx_ingallery_pi1 extends tx_gclib_base {
 	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
 	var $scriptRelPath = 'pi1/class.tx_ingallery_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'in_gallery';	// The extension key.
@@ -68,8 +68,8 @@ class tx_ingallery_pi1 extends tx_gclib {
 
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_pi1.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_pi1.php']);
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_pi1.php'])	{
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_pi1.php']);
 }
 
 ?>

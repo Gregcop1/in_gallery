@@ -21,8 +21,15 @@
 *
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
+/**
+ * [CLASS/FUNCTION INDEX of SCRIPT]
+ *
+ * Hint: use extdeveval to insert/update function index above.
+ */
 
-require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
+
+require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib.php');
+
 
 /**
  * Plugin 'Library GC' for the 'gc_lib' extension.
@@ -32,12 +39,10 @@ require_once(t3lib_extMgm::extPath('gc_lib').'class.tx_gclib_list.php');
  * @subpackage tx_gclib
  */
 class tx_ingallery_imageList extends tx_gclib_list {
-	var $prefixId      = 'tx_ingallery_pi1';		// Same as class name
-	var $conf;
-	var $tableName;
-	var $subPart;
-	var $query;
-	var $results;
+	var $prefixId      = 'tx_ingallery_imageList';		// Same as class name
+	var $scriptRelPath = 'pi1/class.tx_ingallery_imageList.php';	// Path to this script relative to the extension dir.
+	var $extKey        = 'in_gallery';	// The extension key.
+	var $pi_checkCHash = true;
 
 
 	/**
@@ -104,7 +109,6 @@ class tx_ingallery_imageList extends tx_gclib_list {
 
  }
 
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_imageList.php'])	{
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/in_gallery/class.tx_ingallery_imageList.php']);
+if (defined('TYPO3_MODE') && $GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_imageList.php'])	{
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/in_gallery/pi1/class.tx_ingallery_imageList.php']);
 }
